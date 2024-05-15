@@ -1,11 +1,12 @@
 name: scheduled-workflow
 
 on:
-  schedule:
+  workflow_dispatch: # manual trigger
+  # schedule:
     # hourly: 0 * * * *
     # daily: 0 0 * * *
     # every 10 minutes: */10 * * * *
-    - cron: "*/5 * * * *"
+    # - cron: "*/5 * * * *"
 
 jobs:
   build:
