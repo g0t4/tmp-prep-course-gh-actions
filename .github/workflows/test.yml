@@ -4,7 +4,7 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  workflow_dispatch: # manual only
+#  workflow_dispatch: # manual only
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
