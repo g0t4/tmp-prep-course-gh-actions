@@ -60,7 +60,7 @@ jobs:
         uses: softprops/action-gh-release@v2 # https://github.com/marketplace/actions/gh-release
         with:
           files: upper/upper-*
-          tag_name: ${{ github.ref_name }}
+          # tag_name: ${{ github.ref_name }}
           # prerelease: true # FYI
           body: "Release of upper command for uppercasing text..."
         env:
