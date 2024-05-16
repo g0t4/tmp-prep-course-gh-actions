@@ -21,6 +21,12 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         # TODO investigate demo for matrix strategy to build for diff go versions (less "practical") OR cpu arch or OSes
         #   IDEA => show executable downloaded (from uploaded linux binary) doesn't work on macos => download it and try to run it... "file could not be run by the operating system." => ok, lets build on a mac instead then too
+        # PRN pivot to GOOS/GOARCH to cross compile: https://golang.org/doc/install/source#environment, i.e.:
+        #  GOOS=linux GOARCH=amd64 go build -o upper-linux main.go
+        #  GOOS=windows GOARCH=amd64 go build -o upper-windows.exe main.go
+        #  GOOS=darwin GOARCH=amd64 go build -o upper-darwin main.go
+        #  why? one, simple ubuntu runner can handle all of them (even arch)... much less complexity
+
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -46,5 +52,17 @@ jobs:
           # retention-days: X (default 90 => or repo setting)
           # compression-level: 0  # disable compression
         # observe debug commands in output (i.e. "Search path", "File" found, and "Root artifact directory" for archive context)
+      - name: publish to a release
+        uses: softprops/action-gh-release@v2 # https://github.com/marketplace/actions/gh-release
+        with:
+          files: upper/upper
+          # tag_name: v1.0.0 # PRN
+          # release_name: Release 1.0.0 # PRN
+          body: "Release of upper command... <changelog>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: github.ref == 'refs/heads/master'
+        #    or use a tag
+        #
 # cdr; act --workflows .github/workflows/upper-build.yml --reuse
 #    warn to test w/o --reuse, as needed, i.e. major changes to the workflow
