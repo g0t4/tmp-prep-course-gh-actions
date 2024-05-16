@@ -9,9 +9,6 @@ on:
 
 # FYI go guide: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-# TODO investigate demo for matrix strategy to build for diff go versions (less "practical") OR cpu arch or OSes
-#   IDEA => show executable downloaded (from uploaded linux binary) doesn't work on macos => download it and try to run it... "file could not be run by the operating system." => ok, lets build on a mac instead then too
-
 defaults:
   run:
     working-directory: upper
@@ -19,7 +16,14 @@ defaults:
 
 jobs:
   build:
-    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        # TODO investigate demo for matrix strategy to build for diff go versions (less "practical") OR cpu arch or OSes
+        #   IDEA => show executable downloaded (from uploaded linux binary) doesn't work on macos => download it and try to run it... "file could not be run by the operating system." => ok, lets build on a mac instead then too
+    runs-on: ${{ matrix.os }}
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v4
@@ -43,7 +47,5 @@ jobs:
           # retention-days: X (default 90 => or repo setting)
           # compression-level: 0  # disable compression
         # observe debug commands in output (i.e. "Search path", "File" found, and "Root artifact directory" for archive context)
-      
-
 # cdr; act --workflows .github/workflows/upper-build.yml --reuse
 #    warn to test w/o --reuse, as needed, i.e. major changes to the workflow
