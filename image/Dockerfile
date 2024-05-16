@@ -6,7 +6,7 @@ FROM ubuntu:24.04
 
 # THINK pack your app in an image:
 #   maybe use this to run tests of your app in different distro envs
-  RUN apt update && apt install -y python3 icdiff fish
+RUN apt update && apt install -y python3 icdiff fish
 # each major release of ubuntu has a diff python/icdiff version so could demo that to show the final variance too
 
 ENTRYPOINT [ "fish" ]
