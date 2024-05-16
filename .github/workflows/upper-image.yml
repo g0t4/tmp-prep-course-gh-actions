@@ -7,6 +7,9 @@ on:
       - "upper"
   workflow_dispatch: # manual
 
+permissions:
+  packages: write
+
 jobs:
   build:
     name: build-it
