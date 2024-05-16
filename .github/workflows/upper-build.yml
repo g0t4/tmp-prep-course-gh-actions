@@ -21,7 +21,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest] #, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest] #, windows-latest, macos-latest]
         # TODO investigate demo for matrix strategy to build for diff go versions (less "practical") OR cpu arch or OSes
         #   IDEA => show executable downloaded (from uploaded linux binary) doesn't work on macos => download it and try to run it... "file could not be run by the operating system." => ok, lets build on a mac instead then too
         # PRN pivot to GOOS/GOARCH to cross compile: https://golang.org/doc/install/source#environment, i.e.:
@@ -44,21 +44,21 @@ jobs:
       # - run: go clean # PRN
       - run: go get . # PRN
       # - run: go env # dump env to review config on the runner, i.e. go env GOPATH, FYI setup-go dumps this too
-      - run: go build
+      - run: go build -o "upper-${{ matrix.os }}"
       - run: go test
       - run: ls -al # after build show outputs too
         if: matrix.os != 'windows-latest'
       - uses: actions/upload-artifact@v4
         with:
           name: executable-${{ matrix.os }}
-          path: upper/upper # relative to
+          path: upper/upper-* # relative to
           # retention-days: X (default 90 => or repo setting)
           # compression-level: 0  # disable compression
         # observe debug commands in output (i.e. "Search path", "File" found, and "Root artifact directory" for archive context)
       - name: publish to a release
         uses: softprops/action-gh-release@v2 # https://github.com/marketplace/actions/gh-release
         with:
-          files: upper/upper
+          files: upper/upper-*
           tag_name: v1.0.0
           # prerelease: true # FYI
           body: "Release of upper command... <changelog>"
