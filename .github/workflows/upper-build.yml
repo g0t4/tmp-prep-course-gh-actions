@@ -16,7 +16,6 @@ defaults:
 
 jobs:
   build:
-
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -39,7 +38,7 @@ jobs:
       - run: go build
       - run: go test
       - run: ls -al # after build show outputs too
-
+        if: matrix.os != 'windows-latest'
       - uses: actions/upload-artifact@v4
         with:
           name: executable-${{ matrix.os }}
