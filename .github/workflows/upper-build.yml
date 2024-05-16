@@ -42,7 +42,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: executable
+          name: executable-${{ matrix.os }}
           path: upper/upper # relative to
           # retention-days: X (default 90 => or repo setting)
           # compression-level: 0  # disable compression
