@@ -14,9 +14,17 @@ jobs:
   build:
     name: build-it
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ["7.0.x", "6.0.x", "8.0.x"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - run: dotnet --version
       - run: dotnet build
+        working-directory: api/foo
+
+# cdr # avoid path issues
+# act --workflows .github/workflows/api-build.yml --reuse
