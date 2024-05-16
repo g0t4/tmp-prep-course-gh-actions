@@ -1,0 +1,15 @@
+name: mod issues
+
+on:
+  push:
+    paths:
+      - ".github/workflows/mod-issues.yml"
+
+jobs:
+  issues:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          gh repo list
+          gh issue list # won't be relevant at the point of the course where I wanted to show this
+          gh pr list
