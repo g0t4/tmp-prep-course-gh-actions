@@ -1,0 +1,61 @@
+name: upper xplat
+
+on:
+  push:
+    paths:
+      - ".github/workflows/upper-xplat.yml"
+      - "upper/**"
+  workflow_dispatch: # manual
+
+# FYI go guide: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+defaults:
+  run:
+    working-directory: upper
+    # w/ work-dir set => running commands before checkout fails (i.e. act w/o --reuse)
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: 1.22
+          # TODO caching by default: hash(go.sum) https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go#caching-dependencies
+          # cache-dependency-path: foo/go.sum
+
+
+      - run: ./build.xplat.sh  # run build script
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bin_dir
+          path: upper/bin/*
+          #compression-level: 0  # disable compression
+
+      - run: "echo context: ${{ toJson(github) }}"
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: upper/bin/*
+          # tag_name: ${{ github.ref_name }} # default is github.ref
+          # prerelease: true # FYI
+          body: "xplat release of upper command for uppercasing text..."
+          append_body: true # if release again, append to body (ie push tag twice)
+          # fail_on_unmatched_files:
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: startsWith(github.ref, 'refs/tags/')
+        #    requirie tag w/ v* prefix to trigger release
+        #
+# cdr; act --workflows .github/workflows/upper-build.yml --reuse
+#    warn to test w/o --reuse, as needed, i.e. major changes to the workflow
