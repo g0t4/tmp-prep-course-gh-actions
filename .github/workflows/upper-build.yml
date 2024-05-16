@@ -1,0 +1,47 @@
+name: upper build
+
+on:
+  push:
+    paths:
+      - ".github/workflows/upper-build.yml"
+      - "upper/**"
+  workflow_dispatch: # manual
+
+# FYI go guide: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+# TODO investigate demo for matrix strategy to build for diff go versions (less "practical") OR cpu arch or OSes
+
+defaults:
+  run:
+    working-directory: upper
+    # w/ work-dir set => running commands before checkout fails (i.e. act w/o --reuse)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: 1.22
+          # TODO caching by default: hash(go.sum) https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go#caching-dependencies
+          # cache-dependency-path: foo/go.sum
+
+      # FYI offer script alternative for the build process, extol local reproducibility
+      # - run: go clean # PRN
+      - run: go get . # PRN
+      # - run: go env # dump env to review config on the runner, i.e. go env GOPATH, FYI setup-go dumps this too
+      - run: go build
+      - run: go test
+      - run: ls -al # after build show outputs too
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: executable
+          path: upper/upper # relative to
+          # retention-days: X (default 90 => or repo setting)
+          # compression-level: 0  # disable compression
+        # observe debug commands in output (i.e. "Search path", "File" found, and "Root artifact directory" for archive context)
+
+# cdr; act --workflows .github/workflows/upper-build.yml --reuse
+#    warn to test w/o --reuse, as needed, i.e. major changes to the workflow
