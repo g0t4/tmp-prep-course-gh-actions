@@ -64,8 +64,8 @@ jobs:
           body: "Release of upper command... <changelog>"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: github.ref == 'refs/heads/master'
-        #    or use a tag
+        if: github.ref == 'refs/tags/v*'
+        #    requirie tag w/ v* prefix to trigger release
         #
 # cdr; act --workflows .github/workflows/upper-build.yml --reuse
 #    warn to test w/o --reuse, as needed, i.e. major changes to the workflow
