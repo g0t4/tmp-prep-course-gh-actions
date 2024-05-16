@@ -56,8 +56,8 @@ jobs:
         uses: softprops/action-gh-release@v2 # https://github.com/marketplace/actions/gh-release
         with:
           files: upper/upper
-          # tag_name: v1.0.0 # PRN
-          # release_name: Release 1.0.0 # PRN
+          tag_name: v1.0.0
+          # prerelease: true # FYI
           body: "Release of upper command... <changelog>"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
