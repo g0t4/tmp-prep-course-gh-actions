@@ -1,0 +1,23 @@
+name: upper image build
+
+on:
+  push:
+    paths:
+      - ".github/workflows/upper-image.yml"
+      - "upper"
+  workflow_dispatch: # manual
+
+jobs:
+  build:
+    name: build-it
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: upper
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker version
+      - run: docker image build -t upper .
+      - name: test it
+        run: docker container run upper foo the bar
+
