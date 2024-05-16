@@ -1,0 +1,22 @@
+name: api-build
+
+on:
+  push:
+    paths:
+      - ".github/workflows/api-build.yml"
+      - "api/**"
+  pull_request:
+    paths:
+      - "api/**"
+  workflow_dispatch: # manual
+
+jobs:
+  build:
+    name: build-it
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - run: dotnet build
