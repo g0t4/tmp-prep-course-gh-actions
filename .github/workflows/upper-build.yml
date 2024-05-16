@@ -56,6 +56,7 @@ jobs:
           # compression-level: 0  # disable compression
         # observe debug commands in output (i.e. "Search path", "File" found, and "Root artifact directory" for archive context)
       - name: publish to a release
+        # race condition if publishing releases in parallel
         uses: softprops/action-gh-release@v2 # https://github.com/marketplace/actions/gh-release
         with:
           files: upper/upper-*
