@@ -11,6 +11,7 @@ jobs:
     steps:
       - run: env
       - run: |
+          env # point out masked GH_TOKEN
           gh auth status
           # gh api user
           gh repo list # only lists this single repo
