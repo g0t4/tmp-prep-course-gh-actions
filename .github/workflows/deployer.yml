@@ -7,20 +7,29 @@ on:
   workflow_dispatch: # manual
 
 jobs:
-  predeploy:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo building
-      - run: echo "BUTLER_MODEL= ${{ vars.BUTLER_MODEL}}"
-      # - run: echo "DEPLOY_KEY= ${{ secrets.DEPLOY_KEY }}" # warning if try to include this
+  # predeploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo building
+  #     - run: echo "BUTLER_MODEL= ${{ vars.BUTLER_MODEL}}"
+  #     # - run: echo "DEPLOY_KEY= ${{ secrets.DEPLOY_KEY }}" # warning if try to include this
 
-  deploy:
-    needs: predeploy
+  testing:
+    # needs: predeploy
     runs-on: ubuntu-latest
-    environment: production
-
+    # environment: staging
+    container:
+      image: mysql:5.7 # TODO client only image?
     steps:
-      - run: echo "BUTLER_MODEL= ${{ vars.BUTLER_MODEL}}"
-      - run: echo "DEPLOY_KEY= ${{ secrets.DEPLOY_KEY }}" # i.e. defined only in prod/stating
-      - run: echo "deploying"
-      - run: echo "deployed"
+      - run: mysql --version
+
+  # deploy:
+  #   needs: predeploy
+  #   runs-on: ubuntu-latest
+  #   environment: production
+
+  #   steps:
+  #     - run: echo "BUTLER_MODEL= ${{ vars.BUTLER_MODEL}}"
+  #     - run: echo "DEPLOY_KEY= ${{ secrets.DEPLOY_KEY }}" # i.e. defined only in prod/stating
+  #     - run: echo "deploying"
+  #     - run: echo "deployed"
