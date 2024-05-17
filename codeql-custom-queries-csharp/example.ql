@@ -80,3 +80,8 @@ select v, message
 //       --overwrite # if db already exists
 //       restart vscode (had issue after update database locally, fixed after restart)
 // FYI can get codeql DB from public repos like powershell/powershell => use vscode extension to pull DB and open in Databases panel => pick the language to query) => run same custom query on diff databases
+//
+//
+// *** codeql CLI analyze/run:
+// cdr => cd api =>
+//    codeql database analyze api-codeql-db/ ../codeql-custom-queries-csharp/example.ql --format=sarif-latest --output=results.sarif
