@@ -47,6 +47,7 @@ jobs:
           #      /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql database init --overwrite --db-cluster /home/runner/work/_temp/codeql_databases --source-root=/home/runner/work/tmp-prep-course-gh-actions/tmp-prep-course-gh-actions/api --extractor-include-aliases --language=csharp --begin-tracing --trace-process-name=Runner.Worker.exe --codescanning-config=/home/runner/work/_temp/user-config.yaml --calculate-language-specific-baseline --sublanguage-file-coverage
           # *** logs => This in-progress database is ready to be populated by an extractor.
       # TODO reuse codeql args b/w steps (use codeql-config.yml?)
+      #   TODO FYI codeql sets a ton of env vars, IIAC I can use that to pass config to subsequent codeql-action/*** steps?
       # ! just use codeql command manually? I know the subcommands I need... why use actions that add another layer of copmlexity (seriously that is a tradeoff one must consider)
       - run: ls /home/runner/work/_temp/codeql_databases
       - run: env
