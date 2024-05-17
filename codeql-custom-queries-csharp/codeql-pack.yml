@@ -1,7 +1,7 @@
 ---
 library: false
 warnOnImplicitThis: false
-name: getting-started/codeql-extra-queries-csharp
+name: foo
 version: 1.0.0
 dependencies:
   codeql/csharp-all: ^0.10.1
