@@ -14,8 +14,18 @@ jobs:
   #     - run: echo "BUTLER_MODEL= ${{ vars.BUTLER_MODEL}}"
   #     # - run: echo "DEPLOY_KEY= ${{ secrets.DEPLOY_KEY }}" # warning if try to include this
 
+  generate:
+    # needs: predeploy
+    runs-on: ubuntu-latest
+    outputs:
+      RANDOM_PASSWORD: ${{ steps.generate.outputs.RANDOM_PASSWORD }}
+    steps:
+      - id: generate
+        run: echo "RANDOM_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> "$GITHUB_OUTPUT"
+
   testing:
     # needs: predeploy
+    needs: generate
     # environment: staging
     runs-on: ubuntu-latest
     container:
@@ -24,13 +34,14 @@ jobs:
       mysqlserver:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: ${{ needs.generate.outputs.RANDOM_PASSWORD }}
           MYSQL_DATABASE: foothebar
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       # - run: mysql --version
+      - run: echo "RANDOM_PASSWORD= ${{ needs.generate.outputs.RANDOM_PASSWORD }}"
       - run: mysql -h mysqlserver -u root -proot -e "SHOW DATABASES;"
       - run: echo "job.services= ${{ toJson(job.services)}}" # { mysql: { id, ports:[], network } }
       - run: echo "job.container= ${{ toJson(job.container)}}" # {id, network }
