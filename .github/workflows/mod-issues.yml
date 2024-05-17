@@ -6,12 +6,15 @@ on:
       - ".github/workflows/mod-issues.yml"
   workflow_dispatch: # manual
 
+env:
+  FOO: bar
+
 jobs:
   issues:
     runs-on: ubuntu-latest
     steps:
       - run: env
-      - run: echo "${{ toJson(env) }}" # not same as env command (what runner sees)
+      - run: echo "${{ toJson(env) }}" # empty, not same as env command (what runner sees)
       - run: |
           env # point out masked GH_TOKEN
           gh auth status
