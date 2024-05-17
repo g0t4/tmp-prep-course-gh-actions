@@ -17,6 +17,6 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_API_MODEL: "gpt-4-0125-preview" # try specific model to fix json error
+          OPENAI_API_MODEL: "gpt-4-0125-preview" # worked! on a readme change it told me my readme was not helpful lol which is exactly what I was hoping to get w00t
           # COULD Use variable for model so we don't have to push this workflow to update
           # exclude: "**/*.json, **/*.md" # Optional: exclude patterns separated by commas
