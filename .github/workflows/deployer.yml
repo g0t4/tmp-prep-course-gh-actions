@@ -18,10 +18,10 @@ jobs:
     # needs: predeploy
     runs-on: ubuntu-latest
     outputs:
-      RANDOM_PASSWORD: ${{ steps.generate.outputs.RANDOM_PASSWORD }}
+      RANDOM_PASSWORD: ${{ env.RANDOM_PASSWORD }}
     steps:
       - id: generate
-        run: echo "RANDOM_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> "$GITHUB_OUTPUT"
+        run: echo "RANDOM_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> "$GITHUB_ENV"
 
   testing:
     # needs: predeploy
