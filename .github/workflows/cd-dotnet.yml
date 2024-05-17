@@ -7,6 +7,9 @@ on:
       - "api/**"
   workflow_dispatch: # manual
 
+permissions:
+  security-events: write
+
 jobs:
   # add back in to final example, if I go the route of a full CD pipeline
   # build:
@@ -38,3 +41,5 @@ jobs:
           # debug: true # verbose output
           # build-mode: # PRN
       # - run: codeql --version
+# notes
+#    Warning: This run of the CodeQL Action does not have permission to access Code Scanning API endpoints. As a result, it will not be opted into any experimental features. This could be because the Action is running on a pull request from a fork. If not, please ensure the Action has the 'security-events: write' permission. Details: Resource not accessible by integration
