@@ -19,6 +19,8 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
+string password = "duckfoot335!"; 
+
 // declared but not initialized (should have no accesses?)
 int foo;
 
