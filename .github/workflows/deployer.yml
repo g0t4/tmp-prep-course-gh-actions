@@ -18,7 +18,8 @@ jobs:
     # needs: predeploy
     runs-on: ubuntu-latest
     outputs:
-      RANDOM_PASSWORD: ${{ env.RANDOM_PASSWORD }}
+      RANDOM_PASSWORD: ${{ env.RANDOM_PASSWORD }} # two birds, one stone (use ENV locally to pass and next job uses this jobs output) # evaluated after steps, thus RANDOM_PASSWORD is set
+      # RANDOM_PASSWORD: ${{ steps.generate.outputs.RANDOM_PASSWORD }} # alternative is to use outputs in this job
     steps:
       - id: generate
         run: echo "RANDOM_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> "$GITHUB_ENV"
