@@ -19,7 +19,8 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          cmd: review
+          cmd: review # ingore warning about invalid arg
+          model: gpt-4-1106-preview
           # lang: ja
   chat:
     if: startsWith(github.event.comment.body, '/chat')
@@ -29,6 +30,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          cmd: chat
+          cmd: chat # ingore warning about invalid arg
           comment_body: ${{ github.event.comment.body }}
+          model: gpt-4-1106-preview
           # lang: ja
