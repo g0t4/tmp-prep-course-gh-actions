@@ -13,6 +13,11 @@ jobs:
   #     - run: echo building
   #     - run: echo "BUTLER_MODEL= ${{ vars.BUTLER_MODEL}}"
   #     # - run: echo "DEPLOY_KEY= ${{ secrets.DEPLOY_KEY }}" # warning if try to include this
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "RANDOM_PASS=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> $GITHUB_ENV # use outputs?
+      - run: env
 
   testing:
     # needs: predeploy
@@ -30,6 +35,7 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
+      - run: env
       # - run: mysql --version
       - run: mysql -h mysqlserver -u root -proot -e "SHOW DATABASES;"
       - run: echo "job.services= ${{ toJson(job.services)}}" # { mysql: { id, ports:[], network } }
