@@ -56,7 +56,8 @@ jobs:
         working-directory: ./api
         # TODO hide compiler warnings so as not to confuse with codeql alerts (from my custom query about unused local vars)
       - name: run my query manually
-        run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql query run --database /home/runner/work/_temp/codeql_databases/csharp ./codeql-custom-queries-csharp/example.ql --output=csv
+        run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql query run --database /home/runner/work/_temp/codeql_databases/csharp ./codeql-custom-queries-csharp/example.ql
+        # --output=csv
       # - run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql --version      # FYI codeql is NOT put into the path
 
       # TODO? codeql packs => https://docs.github.com/en/code-security/codeql-cli/getting-started-with-the-codeql-cli/customizing-analysis-with-codeql-packs
