@@ -10,7 +10,9 @@ jobs:
   predeploy:
     runs-on: ubuntu-latest
     steps:
-      - run: env
+      - run: echo building
+      - run: echo "${{ vars.BUTLER_MODEL}}"
+      # - run: echo "${{ secrets.DEPLOY_KEY }}" # warning if try to include this
 
   deploy:
     needs: predeploy
@@ -18,6 +20,7 @@ jobs:
     environment: production
 
     steps:
-      - run: env
+      - run: echo "${{ vars.BUTLER_MODEL}}"
+      - run: echo "${{ secrets.DEPLOY_KEY }}"
       - run: echo "deploying"
       - run: echo "deployed"
