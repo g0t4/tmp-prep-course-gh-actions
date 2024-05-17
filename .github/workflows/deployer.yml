@@ -1,0 +1,23 @@
+name: deployer
+
+on:
+  push:
+    paths:
+      - ".github/workflows/deployer.yml"
+  workflow_dispatch: # manual
+
+jobs:
+  predeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: env
+
+  deploy:
+    needs: predeploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - run: env
+      - run: echo "deploying"
+      - run: echo "deployed"
