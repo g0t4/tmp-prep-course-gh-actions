@@ -29,6 +29,7 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
+      - run: env
       - name: Initialize CodeQL
         uses:
           github/codeql-action/init@v3
@@ -44,9 +45,19 @@ jobs:
           # build-mode: # PRN
           # FYI look in logs to find what version and location of codeql used (also helpful to verify commands used)
           #      /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql database init --overwrite --db-cluster /home/runner/work/_temp/codeql_databases --source-root=/home/runner/work/tmp-prep-course-gh-actions/tmp-prep-course-gh-actions/api --extractor-include-aliases --language=csharp --begin-tracing --trace-process-name=Runner.Worker.exe --codescanning-config=/home/runner/work/_temp/user-config.yaml --calculate-language-specific-baseline --sublanguage-file-coverage
-      - run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql --version
-      # - run: codeql --version
+          # *** logs => This in-progress database is ready to be populated by an extractor.
+      # TODO reuse codeql args b/w steps (use codeql-config.yml?)
+      - run: ls /home/runner/work/_temp/codeql_databases
+      - run: env
+      - name: Autobuild
+        run: dotnet build
+      # - name: Analyze
+      #   run:
+      #     /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql query run --database ./codeql-database --sarif
 
+          # - run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql --version      # FYI codeql is NOT put into the path
+
+      # TODO? codeql packs => https://docs.github.com/en/code-security/codeql-cli/getting-started-with-the-codeql-cli/customizing-analysis-with-codeql-packs
 #
 #
 # notes
