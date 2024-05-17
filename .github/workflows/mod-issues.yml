@@ -13,8 +13,8 @@ jobs:
           gh auth status
           gh api user
           gh repo list
-          gh issue list # won't be relevant at the point of the course where I wanted to show this
-          gh pr list
-        # FYI gh CLI => env vars docs: https://cli.github.com/manual/gh_help_environment
+          FYI gh CLI => env vars docs: https://cli.github.com/manual/gh_help_environment
         env:
           GH_TOKEN: ${{ github.token }}
+      - uses: actions/checkout@v4
+      # TODO further action, maybe metrics report?
