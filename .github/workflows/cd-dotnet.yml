@@ -51,9 +51,9 @@ jobs:
       # ! just use codeql command manually? I know the subcommands I need... why use actions that add another layer of copmlexity (seriously that is a tradeoff one must consider)
       - run: ls /home/runner/work/_temp/codeql_databases
       - run: env
-      - name: Autobuild
-        run: dotnet build
-        working-directory: ./api
+      # - name: Autobuild
+      #   run: dotnet build
+      #   working-directory: ./api
       # - name: Analyze
       #   run:
       #     /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql query run --database ./codeql-database --sarif
