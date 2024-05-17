@@ -1,0 +1,13 @@
+name: after deploy
+
+on:
+  workflow_run:
+    workflows: ["deployer"]
+    types:
+      - completed
+
+jobs:
+  after_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "run post deploy tests"
