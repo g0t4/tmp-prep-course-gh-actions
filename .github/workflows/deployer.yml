@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo building
-      - run: echo "${{ vars.BUTLER_MODEL}}"
-      # - run: echo "${{ secrets.DEPLOY_KEY }}" # warning if try to include this
+      - run: echo "BUTLER_MODEL= ${{ vars.BUTLER_MODEL}}"
+      # - run: echo "DEPLOY_KEY= ${{ secrets.DEPLOY_KEY }}" # warning if try to include this
 
   deploy:
     needs: predeploy
@@ -20,7 +20,7 @@ jobs:
     environment: production
 
     steps:
-      - run: echo "${{ vars.BUTLER_MODEL}}"
-      - run: echo "${{ secrets.DEPLOY_KEY }}"
+      - run: echo "BUTLER_MODEL= ${{ vars.BUTLER_MODEL}}"
+      - run: echo "DEPLOY_KEY= ${{ secrets.DEPLOY_KEY }}" # i.e. defined only in prod/stating
       - run: echo "deploying"
       - run: echo "deployed"
