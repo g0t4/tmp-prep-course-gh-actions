@@ -25,4 +25,7 @@ WORKDIR /app
 
 COPY --from=builder /app .
 
+# 8.x+ port 8080=>80 https://learn.microsoft.com/en-us/dotnet/core/compatibility/containers/8.0/aspnet-port
+ENV ASPNETCORE_HTTP_PORTS=80
+
 ENTRYPOINT ["dotnet", "api.dll"]
