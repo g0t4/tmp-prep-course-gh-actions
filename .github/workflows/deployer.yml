@@ -20,6 +20,7 @@ jobs:
       - run: env
 
   testing:
+    needs: generate
     # needs: predeploy
     # environment: staging
     runs-on: ubuntu-latest
