@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
+          gh auth status
           gh repo list
           gh issue list # won't be relevant at the point of the course where I wanted to show this
           gh pr list
