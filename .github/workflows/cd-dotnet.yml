@@ -56,7 +56,9 @@ jobs:
         working-directory: ./api
         # TODO hide compiler warnings so as not to confuse with codeql alerts (from my custom query about unused local vars)
       - uses: github/codeql-action/analyze@v3
-        # with: # will it use env vars from init?
+        # Uploads results => w00t w00t I found my custom alerts here: https://github.com/g0t4/tmp-prep-course-gh-actions/security/code-scanning?query=is%3Aclosed+branch%3Amaster
+        # with:
+        #   # https://github.com/github/codeql-action/blob/v3/analyze/action.yml
       #
       # # ! MANUAL WORKS too:
       # - name: manual create, bypass action
