@@ -33,8 +33,9 @@ jobs:
       - run: mysql --version
       - run: mysql -h mysql -u root -proot -e "SHOW DATABASES;"
       - run: docker network ls
-      - run: echo "job.services= ${{ toJson(job.services)}}"
-      - run: echo "job.container= ${{ toJson(job.container)}}"
+      - run: echo "job.services= ${{ toJson(job.services)}}" # { mysql: { id, ports:[], network } }
+      - run: echo "job.container= ${{ toJson(job.container)}}" # {id, network }
+      # FYI alternative is just use docker compose to orchestrate it all for you and plug it into a step, and the reason I suggest that is b/c you can run it locally and test it w/o pushing or using smth like act, but YMMV so service containers exist too
 
   # deploy:
   #   needs: predeploy
