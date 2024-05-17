@@ -42,7 +42,7 @@ jobs:
     steps:
       # - run: mysql --version
       - run: echo "RANDOM_PASSWORD= ${{ needs.generate.outputs.RANDOM_PASSWORD }}"
-      - run: mysql -h mysqlserver -u root -proot -e "SHOW DATABASES;"
+      - run: mysql -h mysqlserver -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }} -e "SHOW DATABASES;"
       - run: echo "job.services= ${{ toJson(job.services)}}" # { mysql: { id, ports:[], network } }
       - run: echo "job.container= ${{ toJson(job.container)}}" # {id, network }
       # FYI alternative is just use docker compose to orchestrate it all for you and plug it into a step, and the reason I suggest that is b/c you can run it locally and test it w/o pushing or using smth like act, but YMMV so service containers exist too
