@@ -63,6 +63,8 @@ jobs:
       #   run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql database create ./manualdb --language=csharp --source-root=./api
       # - name: run my query manually (after db created)
       #   run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql query run --database ./manualdb ./codeql-custom-queries-csharp/example.ql
+      # - name: UNTESTED - s/b ok - analyze instead of run (UNTESTED but should work, USE instead of `query run`)
+      #   run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql database analyze ./manualdb ./codeql-custom-queries-csharp/example.ql --format=csv --output=csv
       # # --output=csv # PRN => upload artifact for csv file
       # # - run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql --version      # FYI codeql is NOT put into the path
       # #
