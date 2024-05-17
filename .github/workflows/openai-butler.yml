@@ -9,6 +9,7 @@ permissions:
 on:
   issue_comment:
     types: [created]
+    # FYI this is a branchless event/trigger, so make sure the workflow is in the default branch and all edits happen there
 
 jobs:
   review:
@@ -20,7 +21,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           cmd: review # ingore warning about invalid arg
-          model: gpt-4o
+          model: gpt-4-1106-preview # this model (currently) gives the best results b/c what it sends is more detailed than with other models (so keep this one)
           # lang: ja
   chat:
     if: startsWith(github.event.comment.body, '/chat')
@@ -32,5 +33,5 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           cmd: chat # ingore warning about invalid arg
           comment_body: ${{ github.event.comment.body }}
-          model: gpt-4o
+          model: gpt-4-1106-preview
           # lang: ja
