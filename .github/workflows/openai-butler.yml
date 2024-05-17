@@ -16,13 +16,14 @@ jobs:
     if: startsWith(github.event.comment.body, '/review')
     runs-on: ubuntu-latest
     steps:
+      - run: echo "${{ toJson(vars) }}" # debug
       - uses: ca-dp/code-butler@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           cmd: review # ingore warning about invalid arg
           model: ${{ vars.BUTLER_MODEL }}
-          # model: gpt-4-1106-preview # this model (currently) gives the best results b/c what it sends is more detailed than with other models (so keep this one)
+          # *** model: gpt-4-1106-preview # this model (currently) gives the best results b/c what it sends is more detailed than with other models (so keep this one)
           # lang: ja
   chat:
     if: startsWith(github.event.comment.body, '/chat')
