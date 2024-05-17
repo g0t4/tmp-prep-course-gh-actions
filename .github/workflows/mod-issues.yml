@@ -19,4 +19,4 @@ jobs:
           # FYI gh CLI => env vars docs: https://cli.github.com/manual/gh_help_environment
           GH_TOKEN: ${{ github.token }}
       - uses: actions/checkout@v4
-      # TODO further action, maybe metrics report?
+      # plenty, jump to open ai next
