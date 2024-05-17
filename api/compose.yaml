@@ -4,5 +4,7 @@ services:
     build:
       context: .
       target: runner
+      platforms:
+        - linux/amd64
     ports:
       - 8080:8080
