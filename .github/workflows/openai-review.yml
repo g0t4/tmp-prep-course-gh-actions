@@ -1,0 +1,21 @@
+# https://github.com/marketplace/actions/ai-code-review-action
+name: openai review
+
+on:
+  push:
+    paths:
+      - ".github/workflows/openai-review.yml"
+      - "upper/**"
+  workflow_dispatch: # manual
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: freeedcom/ai-codereviewer@v2.7.0 # must correspond to tag in repo
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_MODEL: "gpt-4o" # Optional: defaults to "gpt-4"
+          # exclude: "**/*.json, **/*.md" # Optional: exclude patterns separated by commas
