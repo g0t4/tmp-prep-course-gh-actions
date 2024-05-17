@@ -4,6 +4,9 @@ name: openai review
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
+    # use edited so can tweak permissions w/o recreate a new PR on changes to this workflow
+
+permissions: write-all # action docs suggest this but lets scale it back?
 
 jobs:
   review:
