@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: env
+      - run: echo "${{ toJson(env)}}" # alternative to the above
       - run: |
           env # point out masked GH_TOKEN
           gh auth status

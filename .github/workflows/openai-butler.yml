@@ -19,6 +19,7 @@ jobs:
       - run: echo "${{ toJson(vars) }}" # debug
       - uses: ca-dp/code-butler@v1
         with:
+          # model param vs env var to pass secrets
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           cmd: review # ingore warning about invalid arg
