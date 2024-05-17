@@ -9,6 +9,7 @@ jobs:
   issues:
     runs-on: ubuntu-latest
     steps:
+      - run: env
       - run: |
           gh auth status
           gh api user
