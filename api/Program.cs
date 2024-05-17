@@ -21,6 +21,9 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
+// declared but not initialized (should have no accesses?)
+int foo;
+
 // randomly generated, but a consistent set of forecasts for testing purposes
 var consistentForecasts = Enumerable.Range(1, 5).Select(index =>
     new WeatherForecast
