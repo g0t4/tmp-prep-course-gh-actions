@@ -34,6 +34,7 @@ jobs:
         with:
           # inputs => https://github.com/github/codeql-action/blob/main/init/action.yml
           languages: csharp
+          queries: codeql-custom-queries-csharp/example.ql # I would like to limit it to a single query for time sake
           # debug: true # verbose output
           # build-mode: # PRN
-      - run: codeql --version
+      # - run: codeql --version
