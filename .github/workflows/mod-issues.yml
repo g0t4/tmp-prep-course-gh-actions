@@ -11,6 +11,7 @@ jobs:
     steps:
       - run: |
           gh auth status
+          gh api user
           gh repo list
           gh issue list # won't be relevant at the point of the course where I wanted to show this
           gh pr list
