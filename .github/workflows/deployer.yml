@@ -33,8 +33,8 @@ jobs:
       - run: mysql --version
       - run: mysql -h mysql -u root -proot -e "SHOW DATABASES;"
       - run: docker network ls
-      - run: echo "${{ toJson(job.services)}}"
-      - run: echo "${{ toJson(job.container)}}"
+      - run: echo "job.services= ${{ toJson(job.services)}}"
+      - run: echo "job.container= ${{ toJson(job.container)}}"
 
   # deploy:
   #   needs: predeploy
