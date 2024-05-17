@@ -24,5 +24,7 @@ jobs:
           # FYI gh CLI => env vars docs: https://cli.github.com/manual/gh_help_environment
           GH_TOKEN: ${{ github.token }}
       - uses: actions/checkout@v4
+      - run: echo "::set-env name=HELLO::world"
+      - run: env
       - run: echo "${{ toJson(env) }}" # empty, not same as env command (what runner sees), what is set (thus far) in the job
       # plenty, jump to open ai next
