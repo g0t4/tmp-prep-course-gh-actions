@@ -40,7 +40,7 @@ jobs:
           # FYI can also pass codeql config/args via .github/codeql/codeql-config.yml (see example in https://github.com/github/codeql-action/blob/63d519c0ae6a4b739e3377a517400c352a7d829b/.github/codeql/codeql-config.yml)
           languages: csharp
           source-root: ./api
-          # queries: ./codeql-custom-queries-csharp/example.ql # I would like to limit it to a single query for time sake, use + to add vs override (uses in codeql-config.yml)
+          queries: ./codeql-custom-queries-csharp/example.ql # I would like to limit it to a single query for time sake, use + to add vs override (uses in codeql-config.yml)
           # debug: true # verbose output
           # build-mode: # PRN
           # FYI look in logs to find what version and location of codeql used (also helpful to verify commands used)
@@ -56,8 +56,9 @@ jobs:
         working-directory: ./api
         # TODO hide compiler warnings so as not to confuse with codeql alerts (from my custom query about unused local vars)
       - uses: github/codeql-action/analyze@v3
-        # Uploads results => w00t w00t I found my custom alerts here: https://github.com/g0t4/tmp-prep-course-gh-actions/security/code-scanning?query=is%3Aclosed+branch%3Amaster
+        # Uploads results => w00t w00t I found my custom alerts here: https://github.com/g0t4/tmp-prep-course-gh-actions/security/code-scanning?query=is%3Aclosed+branch%3Amaster (FYI opened when used action w/ custom example.ql... then when I commented out setting queries... they weren't detected which then automatically closed the alerts)...  
         # with:
+        #   upload: always(default) | never | failure-only
         #   # https://github.com/github/codeql-action/blob/v3/analyze/action.yml
       #
       # # ! MANUAL WORKS too:
