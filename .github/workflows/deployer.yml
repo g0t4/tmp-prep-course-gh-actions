@@ -32,6 +32,7 @@ jobs:
     steps:
       - run: mysql --version
       - run: mysql -h mysql -u root -proot -e "SHOW DATABASES;"
+      - run: docker network ls
       - run: echo "${{ toJson(job.services)}}"
       - run: echo "${{ toJson(job.container)}}"
 
