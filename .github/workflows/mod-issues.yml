@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - ".github/workflows/mod-issues.yml"
+  workflow_dispatch: # manual
 
 jobs:
   issues:
