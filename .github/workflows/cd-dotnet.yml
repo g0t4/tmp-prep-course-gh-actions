@@ -1,0 +1,26 @@
+name: CD dotnet
+
+on:
+  push:
+    paths:
+      - ".github/workflows/cd-dotnet.yml"
+      - "api/**"
+  workflow_dispatch: # manual
+
+jobs:
+  # add back in to final example, if I go the route of a full CD pipeline
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-dotnet@v4
+  #       with:
+  #         dotnet-version: 8.0.x
+  #     - run: dotnet restore
+  #     - run: dotnet build
+  #     - run: dotnet test
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: codeql --version
