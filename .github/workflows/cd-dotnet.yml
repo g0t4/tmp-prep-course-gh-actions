@@ -55,10 +55,12 @@ jobs:
         run: dotnet build
         working-directory: ./api
         # TODO hide compiler warnings so as not to confuse with codeql alerts (from my custom query about unused local vars)
+      - run: echo "::group::manual steps"
       - name: manual create, bypass action
         run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql database create ./manualdb --language=csharp --source-root=./api
       - name: run my query manually (after db created)
         run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql query run --database ./manualdb ./codeql-custom-queries-csharp/example.ql
+      - run: echo "::endgroup::"
       # --output=csv # PRN => upload artifact for csv file
       # - run: /opt/hostedtoolcache/CodeQL/2.17.2/x64/codeql/codeql --version      # FYI codeql is NOT put into the path
 
