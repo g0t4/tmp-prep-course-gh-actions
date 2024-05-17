@@ -13,7 +13,7 @@ jobs:
       - run: |
           gh auth status
           gh api user
-          gh repo list
+          # gh repo list
         env:
           # FYI gh CLI => env vars docs: https://cli.github.com/manual/gh_help_environment
           GH_TOKEN: ${{ github.token }}
