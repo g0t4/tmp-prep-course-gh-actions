@@ -91,3 +91,9 @@ select v, message
 //
 //    codeql database analyze api-codeql-db/ ../codeql-custom-queries-csharp/example.ql --format=sarif-latest --output=results.sarif
 //
+
+//
+// *** standard queries csharp ***
+// codeql database create  --language=csharp --source-root=./ codeql-db2 --overwrite
+// git clone https://github.com/github/codeql.git ~/repos/github/github/codeql
+// codeql database analyze codeql-db2/ --format=csv --output=w00t.csv  ~/repos/github/github/codeql/csharp/ql/src/
