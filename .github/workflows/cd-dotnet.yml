@@ -51,12 +51,12 @@ jobs:
       # ! just use codeql command manually? I know the subcommands I need... why use actions that add another layer of copmlexity (seriously that is a tradeoff one must consider)
       - run: tree /home/runner/work/_temp/codeql_databases
       - run: env
+      - name: Autobuild (manual `codeql database create` already performs the build, so this is redundant)
+        run: dotnet build
+        working-directory: ./api
+        # TODO hide compiler warnings so as not to confuse with codeql alerts (from my custom query about unused local vars)
       - uses: github/codeql-action/analyze@v3
         # with: # will it use env vars from init?
-      # - name: Autobuild (manual `codeql database create` already performs the build, so this is redundant)
-      #   run: dotnet build
-      #   working-directory: ./api
-      #   # TODO hide compiler warnings so as not to confuse with codeql alerts (from my custom query about unused local vars)
       #
       # # ! MANUAL WORKS too:
       # - name: manual create, bypass action
