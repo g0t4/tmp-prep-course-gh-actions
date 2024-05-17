@@ -32,8 +32,8 @@ jobs:
     steps:
       - run: mysql --version
       - run: mysql -h mysql -u root -proot -e "SHOW DATABASES;"
-      - run: echo "${{ toJson(job.services)}}
-      - run: echo "${{ toJson(job.container)}}
+      - run: echo "${{ toJson(job.services)}}"
+      - run: echo "${{ toJson(job.container)}}"
 
   # deploy:
   #   needs: predeploy
