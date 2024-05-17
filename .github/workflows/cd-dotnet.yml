@@ -40,7 +40,7 @@ jobs:
           # FYI can also pass codeql config/args via .github/codeql/codeql-config.yml (see example in https://github.com/github/codeql-action/blob/63d519c0ae6a4b739e3377a517400c352a7d829b/.github/codeql/codeql-config.yml)
           languages: csharp
           source-root: ./api
-          queries: ./codeql-custom-queries-csharp/example.ql # I would like to limit it to a single query for time sake, use + to add vs override (uses in codeql-config.yml)
+          # queries: ./codeql-custom-queries-csharp/example.ql # I would like to limit it to a single query for time sake, use + to add vs override (uses in codeql-config.yml)
           # debug: true # verbose output
           # build-mode: # PRN
           # FYI look in logs to find what version and location of codeql used (also helpful to verify commands used)
