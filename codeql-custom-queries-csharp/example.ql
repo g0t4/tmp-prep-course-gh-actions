@@ -84,4 +84,10 @@ select v, message
 //
 // *** codeql CLI analyze/run:
 // cdr => cd api =>
+//
+//    codeql query run ../codeql-custom-queries-csharp/example.ql -d api-codeql-db/
+//        Run query against -d DB
+//        prints table of results! like table in vscode extension
+//
 //    codeql database analyze api-codeql-db/ ../codeql-custom-queries-csharp/example.ql --format=sarif-latest --output=results.sarif
+//
