@@ -5,12 +5,17 @@ on:
     workflows: ["cd-deploy"] # careful w/o name, IIRC has to be the "name" not the file name w/o prefix... # TODO double check this
     types:
       - completed # both success,failure # use condition in steps => if: ${{ github.event.workflow_run.conclusion == 'success' }}
-  workflow_dispatch: # manual # doesn't likely make sense if I rely on passing state (ie URL, REF, etc)
+  workflow_dispatch: # manual # good way to test this workflow, just know the version check is gonna fail if latest commit not pushed (version)... still useful for testing script w/o trigger cd-deploy every time
 
 jobs:
   smokeit:
     runs-on: ubuntu-latest
     steps:
+      - name: Log the event payload
+        run: echo "${{ toJson(github.event.workflow_run) }}"
+        # FYI:
+        #   github.event.workflow_run =>
+        #     id: 1111..., run_number: 1, run_id: 1111..., run_url:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # git describe --tags # in smoke-test.sh
