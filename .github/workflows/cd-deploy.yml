@@ -46,7 +46,6 @@ jobs:
       #     version:
       #       note: you have to update the git repo's tag to alter the version prefix (i.e. v1.0.3), and push the new tag,
       #       however each commit change will result in the version suffix updating
-      #       TODO put back code to use git describe to pass version in build script
       - name: deploy pre-built image to an existing Azure Web App (for Containers)
         uses: azure/webapps-deploy@v3
         with:
