@@ -23,7 +23,7 @@ jobs:
       - run: docker image build -t upper .
       - name: test it
         run: docker container run upper foo the bar
-      - uses: docker/login-action@v2
+      - uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
