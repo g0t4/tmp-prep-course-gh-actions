@@ -4,7 +4,7 @@ on:
   workflow_run:
     workflows: ["cd-deploy"] # careful w/o name, IIRC has to be the "name" not the file name w/o prefix... # TODO double check this
     types:
-      - completed
+      - completed # both success,failure # use condition in steps => if: ${{ github.event.workflow_run.conclusion == 'success' }}
   workflow_dispatch: # manual # doesn't likely make sense if I rely on passing state (ie URL, REF, etc)
 
 jobs:

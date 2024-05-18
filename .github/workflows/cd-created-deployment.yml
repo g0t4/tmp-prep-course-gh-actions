@@ -14,3 +14,10 @@ jobs:
     steps:
       - name: Log the event payload
         run: echo "${{ toJson(github.event.deployment) }}"
+        # FYI:
+        #   github.event.deployment =>
+        #     ref=master, sha=f38a...,
+        #     environment: production, original_environment=production, production_environment: false,
+        #     id (deployment): 1111..., repository_url: https://api.github.com/repos/g0t4/tmp-prep-course-gh-actions
+        #     (deployment) statuses_url: https://api.github.com/repos/g0t4/tmp-prep-course-gh-actions/deployments/1523171313/statuses
+        #     task: deploy, transient_environment: false
