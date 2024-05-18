@@ -94,14 +94,17 @@ select v, message
 
 //
 // *** standard queries csharp ***
-// trash codeql-db2
-// codeql database create  --language=csharp --source-root=./ codeql-db2
-// git clone https://github.com/github/codeql.git ~/repos/github/github/codeql
-//    git tag 
-//    git checkout codeql-cli/v2.17.3
-//    git checkout codeql-cli/latest
-//    # unfortunatley some broken tests, need to pick a subset
-// codeql database analyze codeql-db2/ --format=csv --output=w00t.csv  ~/repos/github/github/codeql/csharp/ql/src/
-// target hard coded credential tests:
-//    no joe so far...
-//    codeql database analyze codeql-db2/ --format=csv --output=w00t.csv --rerun ~/repos/github/github/codeql/csharp/ql/src/Security\ Features/CWE-798/HardcodedCredentials.ql
+// rebuild db:
+//    trash codeql-db2
+//    codeql database create  --language=csharp --source-root=./ codeql-db2
+// pull codeql repo (queries):
+//    git clone https://github.com/github/codeql.git ~/repos/github/github/codeql
+//    git tag # find a tag to checkout by version or main branch
+//      git checkout codeql-cli/v2.17.3
+//      git checkout codeql-cli/latest
+//    running all tests takes forever:
+//      codeql database analyze codeql-db2/ --format=csv --output=w00t.csv  ~/repos/github/github/codeql/csharp/ql/src/
+//    running a single test that I added code to trigger:
+//      codeql database analyze codeql-db2/ --format=csv --output=w00t.csv --rerun ~/repos/github/github/codeql/csharp/ql/src/Security\ Features/CWE-798/HardcodedCredentials.ql
+//      cat w00t.csv => "Hard-coded credentials","Credentials are hard coded in the source code of the application.","error","The hard-coded value ""duckfoot335!"" flows to [[""""""duckfoot335!""""""|""relative:///Program.cs:25:21:25:34""]] which is compared against [[""access to parameter password""|""relative:///Program.cs:25:9:25:16""]].","/Program.cs","25","21","25","34"
+//      TODO setup workflow to run this test instead of my custom one? or both?

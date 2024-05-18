@@ -22,6 +22,7 @@ var summaries = new[]
 
 app.MapGet("/sensitive", (string? password) =>
 {
+    // w00h00 this sets off codeql query
     if (password == "duckfoot335!")
     {
         return "You have access!";
