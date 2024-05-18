@@ -1,0 +1,26 @@
+name: cd-deploy smoke testing
+
+on:
+  workflow_run:
+    workflows: ["cd-deploy"]
+    types:
+      - completed
+  workflow_dispatch: # manual # doesn't likely make sense if I rely on passing state (ie URL, REF, etc)
+
+jobs:
+  smokeit:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl "http://gh-actions-web-api.azurewebsites.net/" # PRN pass url arg?s
+
+      - run: ./smoke-test.sh
+
+      # https://github.com/marketplace/actions/url-health-check
+      - name: URL Health Check
+        uses: Jtalk/url-health-check-action@v4
+        with:
+          # https://github.com/Jtalk/url-health-check-action/blob/master/action.yml
+          url: "http://gh-actions-web-api.azurewebsites.net/version"
+          max-attempts: 2
+          retry-delay: 5s
+          # follow-redirect: true

@@ -62,11 +62,19 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+var get_version = () => typeof(WeatherForecast).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+
+app.MapGet("/healthz", () =>
+{
+    return $"Healthy\n{get_version()}";
+});
+
+app.MapGet("/version", get_version);
+
 app.MapFallback(() =>
 {
     // show version of app so each deploy is obvious
-    var info = typeof(WeatherForecast).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
-    return $"Pick a real path!!!\n\tlike /weatherforecast\n\nVersion: {info?.InformationalVersion}";
+    return $"Pick a real path!!!\n\tlike /weatherforecast\n\nVersion: {get_version()}";
 });
 
 app.Run();
