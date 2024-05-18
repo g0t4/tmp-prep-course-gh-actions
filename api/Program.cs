@@ -19,7 +19,6 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-
 app.MapGet("/sensitive", (string? password) =>
 {
     // w00h00 this sets off codeql query
@@ -60,6 +59,12 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
+
+// fallback
+app.MapFallback(() =>
+{
+    return "Pick a real path!!! like /weatherforecast";
+});
 
 app.Run();
 
