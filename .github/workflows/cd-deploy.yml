@@ -1,4 +1,4 @@
-name: cd-deploy dotnet
+name: cd-deploy
 
 on:
   push:
