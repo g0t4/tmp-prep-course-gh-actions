@@ -1,8 +1,8 @@
-name: cd-deploy smoke testing
+name: cd-smoke
 
 on:
   workflow_run:
-    workflows: ["cd-deploy"]
+    workflows: ["cd-deploy"] # careful w/o name, IIRC has to be the "name" not the file name w/o prefix... # TODO double check this
     types:
       - completed
   workflow_dispatch: # manual # doesn't likely make sense if I rely on passing state (ie URL, REF, etc)
@@ -14,6 +14,7 @@ jobs:
       - run: curl "http://gh-actions-web-api.azurewebsites.net/" # PRN pass url arg?s
 
       - run: ./smoke-test.sh
+        working-directory: api
 
       # https://github.com/marketplace/actions/url-health-check
       - name: URL Health Check
