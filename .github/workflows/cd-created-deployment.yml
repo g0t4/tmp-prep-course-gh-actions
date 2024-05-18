@@ -1,3 +1,5 @@
+name: cd-created-deployment
+
 on:
   # deployment_status:   # 3rd party deployment trigger (webhook)
   deployment:
