@@ -1,15 +1,19 @@
 #!/bin/bash
 
-# get ref? or can I pass the expected version here? maybe put smoke test into cd-deploy workflow?
-reported_version=$(curl -fsSL "http://gh-actions-web-api.azurewebsites.net/version")
-echo "Reported version: $reported_version"
+# USAGE:
+#    ./smoke-test.sh 4e2e816a664b81ee95fbe31737ea758edf3aaa4d    # check if this commit is released
+#    ./smoke-test.sh    # check if latest commit is released
 
-# TODO can I inject this from context of deploy trigger?
-latest_version=$(git describe --tag)
-echo "Latest version: $latest_version"
+# head_sha comes from workflow_run event payload, this is the version that was built/deployed
+head_sha=$1 # first arg is ${{ github.event.workflow_run.head_sha }}
+deployed_version=$(git describe --tags $head_sha)
+echo "Deployed version: $deployed_version"
+
+actual_version=$(curl -fsSL "http://gh-actions-web-api.azurewebsites.net/version")
+echo "Actual version: $actual_version"
 
 echo "Check if version matches:"
-if [ "$reported_version" != "$latest_version" ]; then
+if [ "$actual_version" != "$deployed_version" ]; then
   echo "  [FAIL] version mismatch"
   exit 1
 fi
