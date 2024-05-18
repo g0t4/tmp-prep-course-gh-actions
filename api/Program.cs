@@ -20,10 +20,9 @@ var summaries = new[]
 };
 
 
-app.MapGet("/sensitive", (string pass) =>
+app.MapGet("/sensitive", (string? password) =>
 {
-    string password = "duckfoot335!";
-    if (password == pass)
+    if (password == "duckfoot335!")
     {
         return "You have access!";
     }
