@@ -2,8 +2,7 @@ services:
   api:
     image: weshigbee/actions-web-test:latest
     build:
-      context: ..
-      dockerfile: api/Dockerfile
+      context: .
       target: runner
       platforms:
         - linux/amd64

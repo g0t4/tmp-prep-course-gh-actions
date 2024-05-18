@@ -1,42 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <Target Name="GetGitInfo" BeforeTargets="GetAssemblyVersion">
-
-    <!--
-      These must be set early enough to be used in generating assembly info, thus BeforeTargets="GetAssemblyVersion" works well (before InformationVersion is initialized if not set)
-
-      FYI by default msbuild will pick up SourceRevisionId with commit hash... so I could rely on that alone and not need my own git commands here... it still would need access to the .git dir, but it would simplify any modifications to this file...
-      TODO => consider passing git commit info via env vars (via a build script or otherwise) that are passed to the image build so I don't need the git repo in the builder env at all...
-
-      Exec task:
-        https://learn.microsoft.com/en-us/visualstudio/msbuild/exec-task?view=vs-2022 
-          alt: https://learn.microsoft.com/en-us/dotnet/api/microsoft.build.tasks.exec?view=msbuild-17-netcore&redirectedfrom=MSDN
-        FYI ConsoleToMSBuild="true" => capture STDOUT to property, added in 15 => https://learn.microsoft.com/en-us/dotnet/api/microsoft.build.tasks.exec.consoletomsbuild?view=msbuild-17-netcore#microsoft-build-tasks-exec-consoletomsbuild
-    -->
-    <Exec Command="git describe --tags --abbrev=0" IgnoreExitCode="true" ConsoleToMSBuild="true">
-      <!-- get the most recent tag, reachable from the current commit => serves as MAJOR.MINOR.PATCH version info -->
-      <Output TaskParameter="ConsoleOutput" PropertyName="GitTagVersion" />
-    </Exec>
-    <Exec Command="git rev-parse --short HEAD" ConsoleToMSBuild="true">
-      <!-- get the short commit hash => serves as the build number (lease significant part of the version) -->
-      <Output TaskParameter="ConsoleOutput" PropertyName="SourceRevisionId" />
-    </Exec>
-
-    <Exec Command="echo git version captured: $(GitTagVersion) $(SourceRevisionId)" />
-    <!-- FYI new terminal logger hides most msbuild output, disable it with:
-            dotnet build \-\-tl:off
-          so you can see output of commands (like the following), also for Message Tasks, -verbosity diag, etc -->
-
-    <PropertyGroup>
-      <InformationalVersion>$(GitTagVersion)</InformationalVersion>
-    </PropertyGroup>
-
-  </Target>
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <InformationalVersion>$(MY_APP_VERSION)</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
