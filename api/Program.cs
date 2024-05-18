@@ -19,7 +19,19 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-string password = "duckfoot335!"; 
+
+app.MapGet("/sensitive", (string pass) =>
+{
+    string password = "duckfoot335!";
+    if (password == pass)
+    {
+        return "You have access!";
+    }
+    else
+    {
+        return "Access denied!";
+    }
+});
 
 // declared but not initialized (should have no accesses?)
 int foo;
