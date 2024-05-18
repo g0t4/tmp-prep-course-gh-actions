@@ -16,6 +16,7 @@ resource "azurerm_resource_group" "gh-actions" {
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group
   name     = "gh-actions"
   location = "eastus"
+  # BTW resource group can be thought of as k8s namespace, when delete resource group, all resources in it are deleted
 }
 
 
@@ -34,7 +35,7 @@ resource "azurerm_service_plan" "web-api" {
 resource "azurerm_linux_web_app" "web-api" {
   # az webapp list --output table
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app
-  name                = "gh-actions-web-api" # => https://gh-actions-web-api.azurewebsites.net
+  name                = "gh-actions-web-api" # => https://gh-actions-web-api.azurewebsites.net # *** MAKE SURE TO SET NEW NAME (namespaced globbally) ***
   resource_group_name = azurerm_resource_group.gh-actions.name
   location            = azurerm_resource_group.gh-actions.location
 
