@@ -29,3 +29,12 @@ COPY --from=builder /app .
 ENV ASPNETCORE_HTTP_PORTS=80
 
 ENTRYPOINT ["dotnet", "api.dll"]
+
+
+# FYI azure docker logs (not container logs):
+# INFO - docker run -d --expose=80 --name weshigbee_0... -e WEBSITE_USE_DIAGNOSTIC_SERVER=false -e WEBSITES_ENABLE_APP_SERVICE_STORAGE=false -e WEBSITE_SITE_NAME=weshigbee -e WEBSITE_AUTH_ENABLED=False -e PORT=80 -e WEBSITE_ROLE_INSTANCE_ID=0 -e WEBSITE_HOSTNAME=weshigbee.azurewebsites.net -e WEBSITE_INSTANCE_ID=... index.docker.io/weshigbee/actions-web-test
+# INFO - Logging is not enabled for this container.
+# Please use https://aka.ms/linux-diagnostics to enable logging to see container logs here.
+# Container weshigbee_0... for site weshigbee has exited, failing site start
+# Container weshigbee_0... didn't respond to HTTP pings on port: 80, failing site start. See container logs for debugging.
+# Stopping site weshigbee because it failed during startup.
