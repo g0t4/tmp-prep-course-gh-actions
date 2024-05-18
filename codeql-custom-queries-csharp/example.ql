@@ -94,6 +94,14 @@ select v, message
 
 //
 // *** standard queries csharp ***
-// codeql database create  --language=csharp --source-root=./ codeql-db2 --overwrite
+// trash codeql-db2
+// codeql database create  --language=csharp --source-root=./ codeql-db2
 // git clone https://github.com/github/codeql.git ~/repos/github/github/codeql
+//    git tag 
+//    git checkout codeql-cli/v2.17.3
+//    git checkout codeql-cli/latest
+//    # unfortunatley some broken tests, need to pick a subset
 // codeql database analyze codeql-db2/ --format=csv --output=w00t.csv  ~/repos/github/github/codeql/csharp/ql/src/
+// target hard coded credential tests:
+//    no joe so far...
+//    codeql database analyze codeql-db2/ --format=csv --output=w00t.csv --rerun ~/repos/github/github/codeql/csharp/ql/src/Security\ Features/CWE-798/HardcodedCredentials.ql
