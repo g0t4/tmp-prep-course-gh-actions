@@ -13,8 +13,7 @@ WORKDIR /source
 # Placing it here allows the previous steps to be cached across architectures.
 ARG TARGETARCH
 
-# TODO pass as arg/env var to here?
-ENV MY_APP_VERSION=v1.0.7
+ARG MY_APP_VERSION=0.0.1-missing-version
 
 # Build the application.
 # Leverage a cache mount to /root/.nuget/packages so that subsequent builds don't have to re-download packages.

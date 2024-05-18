@@ -22,9 +22,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASS }}
-      - run: docker compose build --pull # PRN --push silently ignored w/ build, suggests a misconfig of builder or smth else (works locally on my mac to build and push AIO)
-      - run: docker compose push
-      # PRN try not just building latest? and instead use a tag w/ a version?
+      - run: ./build-push.sh
 
   deploy:
     needs: build
@@ -38,12 +36,23 @@ jobs:
         # https://github.com/Azure/login/tree/v2#login-with-a-service-principal-secret
 
       # *** deploy pre-built:
+      #   before push changes:
+      #     curl  "http://gh-actions-web-api.azurewebsites.net/" => note the current app version
+      #     push changes, approve deploy job
+      #     wait for webapps-deploy output to say "restarted"
+      #       => then curl again,
+      #       give it up to a minute more to show new app version
+      #     FYI webapps-deploy action sometimes is slow to "complete"... took 5 minutes first time I used it, NBD... however it seems to trigger the deploy rather quickly (in this case pull latest image tag and run new image/version)
+      #     version:
+      #       note: you have to update the git repo's tag to alter the version prefix (i.e. v1.0.3), and push the new tag,
+      #       however each commit change will result in the version suffix updating
+      #       TODO put back code to use git describe to pass version in build script
       - name: deploy pre-built image to an existing Azure Web App (for Containers)
         uses: azure/webapps-deploy@v3
         with:
           # https://github.com/Azure/webapps-deploy/blob/master/action.yml
           app-name: gh-actions-web-api # FYI could use environment => variables to set this (NOT env vars), would open door to reuse of this workflow though IMO it is so simple copy/pasta seems less convoluted and not difficult to maintain
-          images: weshigbee/actions-web-test:latest
+          images: weshigbee/actions-web-test:latest # PRN try not just building latest? and instead use a tag w/ a version?
           resource-group-name: gh-actions
           # FYI
           #    az webapp list --output table
