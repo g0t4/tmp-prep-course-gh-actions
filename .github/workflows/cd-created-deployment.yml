@@ -5,6 +5,7 @@ on:
   deployment:
     # docs: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#deployment
     # no type fitler (on created only, so not gonna smoke test unless gonna wait for deployment job to finish)
+    #   FYI deployment is created BEFORE approval is made, so just keep that in mind too... so you could use this to alert someone or otherwise trigger initial actions
     # payload GITHUB_SHA and GITHUB_REF
 
 jobs:
