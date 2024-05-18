@@ -1,3 +1,5 @@
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -60,10 +62,11 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
-// fallback
 app.MapFallback(() =>
 {
-    return "Pick a real path!!! like /weatherforecast";
+    // show version of app so each deploy is obvious
+    var info = typeof(WeatherForecast).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+    return $"Pick a real path!!!\n\tlike /weatherforecast\n\nVersion: {info?.InformationalVersion}";
 });
 
 app.Run();

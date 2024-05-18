@@ -4,13 +4,18 @@
 
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS builder
 
-COPY . /source
+# copy in git files for versioning
+COPY .git /source/.git
+COPY api /source/
 
 WORKDIR /source
 
 # This is the architecture you’re building for, which is passed in by the builder.
 # Placing it here allows the previous steps to be cached across architectures.
 ARG TARGETARCH
+
+# add git to read commit in exec task in msbuild
+RUN apk add --no-cache git
 
 # Build the application.
 # Leverage a cache mount to /root/.nuget/packages so that subsequent builds don't have to re-download packages.
