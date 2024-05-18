@@ -25,3 +25,25 @@ jobs:
       - run: docker compose build --pull # PRN --push silently ignored w/ build, suggests a misconfig of builder or smth else (works locally on my mac to build and push AIO)
       - run: docker compose push
       # PRN try not just building latest? and instead use a tag w/ a version?
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Log in to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }} # FYI env specific secret to restrict access and require approval to use it to deploy, also can vary the credentials per env (i.e. staging env separate of this)
+        # https://github.com/Azure/login/tree/v2#login-with-a-service-principal-secret
+
+      # *** deploy pre-built:
+      - name: deploy pre-built image to an existing Azure Web App (for Containers)
+        uses: azure/webapps-deploy@v3
+        with:
+          # https://github.com/Azure/webapps-deploy/blob/master/action.yml
+          app-name: gh-actions-web-api # FYI could use environment => variables to set this (NOT env vars), would open door to reuse of this workflow though IMO it is so simple copy/pasta seems less convoluted and not difficult to maintain
+          images: weshigbee/actions-web-test:latest
+          resource-group-name: gh-actions
+          # FYI
+          #    az webapp list --output table
