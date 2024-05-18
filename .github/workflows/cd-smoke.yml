@@ -11,7 +11,10 @@ jobs:
   smokeit:
     runs-on: ubuntu-latest
     steps:
-      - run: curl "http://gh-actions-web-api.azurewebsites.net/" # PRN pass url arg?s
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # git describe --tags # in smoke-test.sh
+      - run: curl -fsSL "http://gh-actions-web-api.azurewebsites.net/" # PRN pass url arg?s
 
       - run: ./smoke-test.sh
         working-directory: api
