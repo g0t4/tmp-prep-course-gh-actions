@@ -16,4 +16,5 @@ jobs:
       #    fetch-tags: true
       - run: which git
       - run: git --version
+      - run: git describe --tags
       - run: env
