@@ -35,7 +35,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment: production
+    environment:
+      name: production
+      url: ${{ steps.webapp-deploy.outputs.webapp-url }}
     steps:
       - name: Log in to Azure
         uses: azure/login@v2
@@ -55,6 +57,7 @@ jobs:
       #       note: you have to update the git repo's tag to alter the version prefix (i.e. v1.0.3), and push the new tag,
       #       however each commit change will result in the version suffix updating
       - name: deploy pre-built image to an existing Azure Web App (for Containers)
+        id: webapp-deploy
         uses: azure/webapps-deploy@v3
         with:
           # https://github.com/Azure/webapps-deploy/blob/master/action.yml
