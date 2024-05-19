@@ -14,6 +14,9 @@ on:
     # types: [completed, requested_action, created, rerequested] # allow all
     # check_run - individual test status (i.e. a workflow is triggered) => status & conclusion
 
+permissions:
+  checks: read
+
 jobs:
   dumper:
     runs-on: ubuntu-latest
