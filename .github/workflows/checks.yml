@@ -1,0 +1,14 @@
+name: checks
+
+on:
+  check_suite:
+    types: completed
+  check_run:
+    types: [completed, requested_action, created, rerequested]
+
+jobs:
+  dumper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: dump github.event context
+        run: echo "${{ toJson(github.event) }}"
