@@ -74,7 +74,7 @@ app.MapGet("/version", get_version);
 app.MapFallback(() =>
 {
     // show version of app so each deploy is obvious
-    return $"Pick a real path!!!\n\tlike /weatherforecast\n\nVersion: {get_version()}";
+    return $"Pick a real path!!\n\tlike /weatherforecast\n\nVersion: {get_version()}";
 });
 
 app.Run();
