@@ -16,6 +16,12 @@ jobs:
   smokeit:
     runs-on: ubuntu-latest
     steps:
+      # TODO pause for 5 minutes? or if fails first check then try again? ...
+      #   FYI "Update WebSite" shows in Activity Log once the deploy is running successfully
+      #      odd that it appears back dated... as if it took sevearl minutes to run and doesn't show at all in activity logs until it finishes
+      #   I suspect free tier F1 may be the reason the deploy takes so long to update... # TODO try P1 paid tier and update responsiveness
+      #   FYI just b/c deploy job (webapp_deploy) finishes doesn't mean the app will return the new version, it can take a few extra minutes... all that is guaranteed is that a deploy is triggered to pull latest image and restart at some point in next 5 ish minutes
+      #
       - run: env # TODO remove this later
       - name: Log the event payload
         run: echo "${{ toJson(github.event.workflow_run) }}"
