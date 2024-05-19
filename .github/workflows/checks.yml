@@ -31,6 +31,9 @@ jobs:
 #   lookup suite by branch:
 #     gh api /repos/g0t4/tmp-prep-course-gh-actions/commits/master/check-suites  # all commits have a suite, many are empty if nothing run (i.e. no actions triggered related to commit)
 #
+#   commit status API:
+#     gh api /repos/g0t4/tmp-prep-course-gh-actions/commits/e2ba83e/status => state: "pending"...
+#
 # FYI commit info (json): gh api /repos/g0t4/tmp-prep-course-gh-actions/commits/e2ba83e
 #
 #   commits page => find check suite for each commit (and show its runs status)
