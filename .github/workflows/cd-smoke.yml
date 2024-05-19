@@ -5,7 +5,7 @@ on:
     workflows: ["cd-deploy"] # careful w/o name, IIRC has to be the "name" not the file name w/o prefix... # TODO double check this
     types:
       - completed # both success,failure # use condition in steps => if: ${{ github.event.workflow_run.conclusion == 'success' }}
-  workflow_dispatch: # manual # good way to test this workflow, just know the version check is gonna fail if latest commit not pushed (version)... still useful for testing script w/o trigger cd-deploy every time
+  workflow_dispatch: # manual (don't have to deploy to test)
     inputs:
       head_sha:
         description: "The commit sha to test, manually provided"
@@ -31,6 +31,7 @@ jobs:
           fetch-depth: 0 # git describe --tags # in smoke-test.sh
       - run: curl -fsSL "http://gh-actions-web-api.azurewebsites.net/" # PRN pass url arg?s
 
+      # if workflow_run => use head_sha, if manual (workflow_dispatch) => use inputs.head_sha... AWESOME
       - run: ./smoke-test.sh "${{ github.event.workflow_run.head_sha || inputs.head_sha }}"
         working-directory: api
 
