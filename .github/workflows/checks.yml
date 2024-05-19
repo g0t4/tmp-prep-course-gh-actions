@@ -1,10 +1,18 @@
 name: checks
 
 on:
+  # checks docs: https://docs.github.com/en/rest/guides/using-the-rest-api-to-interact-with-checks
   check_suite:
-    types: completed
+    types: completed # actions only supports "completed" check_suite type currrently
+    # FYI all types: queued, in_progress, requested, waiting, pending, or completed
+    #   "requested" type is not supported as action trigger, btw requested happens when commit is pushed and new suite is created ("requested"),
+    #   auto check_suite on push commit (called "automatic flow") can be disabled
+    #   github actions is but one of many apps that subscribe to check_suite events
+    #   check_suite event docs: https://docs.github.com/en/webhooks/webhook-events-and-payloads#check_suite (this is underlying event that any app can subscribe to)
+    # check_suite actions trigger docs: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#check_suite
   check_run:
-    types: [completed, requested_action, created, rerequested]
+    # types: [completed, requested_action, created, rerequested] # allow all
+    # check_run - individual test status (i.e. a workflow is triggered) => status & conclusion
 
 jobs:
   dumper:
@@ -12,3 +20,16 @@ jobs:
     steps:
       - name: dump github.event context
         run: echo "${{ toJson(github.event) }}"
+        # github.event.check_run/check_suite
+# FYI check suites per commit:
+#  json:  gh api /repos/g0t4/tmp-prep-course-gh-actions/commits/e2ba83e/check-suites
+#  app:   gh api /repos/g0t4/tmp-prep-course-gh-actions/commits/e2ba83e/check-suites | jq ".check_suites | .[].app.slug"
+#               => "github-actions"
+#   lookup suite by branch:
+#     gh api /repos/g0t4/tmp-prep-course-gh-actions/commits/master/check-suites  # all commits have a suite, many are empty if nothing run (i.e. no actions triggered related to commit)
+#
+# FYI commit info (json): gh api /repos/g0t4/tmp-prep-course-gh-actions/commits/e2ba83e
+#
+#   commits page => find check suite for each commit (and show its runs status)
+#      https://github.com/g0t4/tmp-prep-course-gh-actions/commits
+#        BEST WAY to find the
