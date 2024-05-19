@@ -25,13 +25,13 @@ jobs:
         #   github.event.workflow_run =>
         #     id: 1111..., run_number: 1, run_id: 1111..., run_url:
         #     head_sha => commit sha for the workflow run (deploy job) => use this to get the version of the deployed app
-        #        git describe --tags ${{ github.event.workflow_run.head_sha || inputs.head_sha }}
+        #        git describe --tags head_sha
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # git describe --tags # in smoke-test.sh
       - run: curl -fsSL "http://gh-actions-web-api.azurewebsites.net/" # PRN pass url arg?s
 
-      - run: ./smoke-test.sh "${{ github.event.workflow_run.head_sha }}"
+      - run: ./smoke-test.sh "${{ github.event.workflow_run.head_sha || inputs.head_sha }}"
         working-directory: api
 
       # https://github.com/marketplace/actions/url-health-check
