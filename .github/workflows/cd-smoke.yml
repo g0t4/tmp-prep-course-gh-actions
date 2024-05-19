@@ -9,7 +9,7 @@ on:
     inputs:
       head_sha:
         description: "The commit sha to test, manually provided"
-        required: true
+        required: false
         # default, empty is fine
 
 jobs:
@@ -18,14 +18,14 @@ jobs:
     steps:
       - run: env # TODO remove this later
       - name: Log the event payload
-        run: echo "${{ toJson(github.event.workflow_run || inputs.head_sha) }}"
+        run: echo "${{ toJson(github.event.workflow_run) }}"
         # docs workflow_run payload => https://docs.github.com/en/webhooks/webhook-events-and-payloads#workflow_run
         #
         # FYI:
         #   github.event.workflow_run =>
         #     id: 1111..., run_number: 1, run_id: 1111..., run_url:
         #     head_sha => commit sha for the workflow run (deploy job) => use this to get the version of the deployed app
-        #        git describe --tags ${{ github.event.workflow_run.head_sha }}
+        #        git describe --tags ${{ github.event.workflow_run.head_sha || inputs.head_sha }}
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # git describe --tags # in smoke-test.sh
