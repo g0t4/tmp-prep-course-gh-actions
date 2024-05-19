@@ -6,6 +6,11 @@ on:
     types:
       - completed # both success,failure # use condition in steps => if: ${{ github.event.workflow_run.conclusion == 'success' }}
   workflow_dispatch: # manual # good way to test this workflow, just know the version check is gonna fail if latest commit not pushed (version)... still useful for testing script w/o trigger cd-deploy every time
+    inputs:
+      head_sha:
+        description: "The commit sha to test, manually provided"
+        required: true
+        # default, empty is fine
 
 jobs:
   smokeit:
@@ -13,7 +18,7 @@ jobs:
     steps:
       - run: env # TODO remove this later
       - name: Log the event payload
-        run: echo "${{ toJson(github.event.workflow_run) }}"
+        run: echo "${{ toJson(github.event.workflow_run || inputs.head_sha) }}"
         # docs workflow_run payload => https://docs.github.com/en/webhooks/webhook-events-and-payloads#workflow_run
         #
         # FYI:
