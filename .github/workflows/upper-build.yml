@@ -37,8 +37,10 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: 1.22
-          # TODO caching by default: hash(go.sum) https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go#caching-dependencies
-          # cache-dependency-path: foo/go.sum
+          #
+          # show in logs: Warning: Restore cache failed: Dependencies file is not found ... Supported file pattern: go.sum
+          cache-dependency-path: upper/go.sum # dont enable this until get to the cache demo topic, leave broken in the log
+          # caching (repo root) by default: hash(go.sum) https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go#caching-dependencies
 
       # FYI offer script alternative for the build process, extol local reproducibility
       # - run: go clean # PRN
