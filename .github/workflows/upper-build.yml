@@ -45,8 +45,7 @@ jobs:
 
       # FYI offer script alternative for the build process, extol local reproducibility
       # - run: go clean # PRN
-      - run: go mod download
-      # - run: go get .
+      - run: go mod download # PURPOSE: consolidate downloads to a single step to see the time impact w/ and w/o caching (do not need this otherwise, b/c go build will download dependencies as needed - during build,test,etc)
       # - run: go env # dump env to review config on the runner, i.e. go env GOPATH, FYI setup-go dumps this too
       - run: go build -o "upper-${{ matrix.os }}"
       - run: go test
