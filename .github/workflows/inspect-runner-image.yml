@@ -28,7 +28,7 @@ jobs:
           done
       - name: hosted tool cache
         run: |
-          echo && echo tree -L 2 /opt/hostedtoolcache
+          echo && echo tree -L 3 /opt/hostedtoolcache
           tree -L 2 /opt/hostedtoolcache || true
       - run: cat /etc/os-release
       - run: which -a go
