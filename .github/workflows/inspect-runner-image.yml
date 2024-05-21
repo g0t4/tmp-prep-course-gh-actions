@@ -10,14 +10,42 @@ on:
 # FYI go guide: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
 jobs:
+  # build:
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-24.04, ubuntu-22.04] #, ubuntu-20.04] # , ubuntu-latest] confirmed ubuntu-latest points to 22.04
+  #   runs-on: ${{ matrix.os }}
+  #   steps:
+  #     - run: env
+  #     # instead of trusting the runner image readmes, you can validate what is available in a given runner
+  #     - name: show path dir contents w/ ls
+  #       run: |
+  #         IFS=':' read -r -a dirs <<< "$PATH"
+
+  #         for dir in "${dirs[@]}"; do
+  #           echo && echo "Listing contents of: $dir"
+  #           ls -al "$dir" || true
+  #         done
+  #     - name: hosted tool cache
+  #       run: |
+  #         sudo apt install -y tree
+  #         echo && echo tree -L 3 /opt/hostedtoolcache
+  #         tree -L 2 /opt/hostedtoolcache || true
+  #     - run: cat /etc/os-release
+  #     - run: which -a go
+  #     - run: go version
+  #     - run: go env
   build:
     strategy:
       matrix:
         os: [ubuntu-24.04, ubuntu-22.04] #, ubuntu-20.04] # , ubuntu-latest] confirmed ubuntu-latest points to 22.04
     runs-on: ${{ matrix.os }}
     steps:
-      - run: env
       # instead of trusting the runner image readmes, you can validate what is available in a given runner
+      - run: which -a go
+      - run: go version # before setup-go
+      # setup-go:
+      - uses: actions/setup-go@v5
       - name: show path dir contents w/ ls
         run: |
           IFS=':' read -r -a dirs <<< "$PATH"
@@ -26,12 +54,10 @@ jobs:
             echo && echo "Listing contents of: $dir"
             ls -al "$dir" || true
           done
-      - name: hosted tool cache
-        run: |
-          sudo apt install -y tree
-          echo && echo tree -L 3 /opt/hostedtoolcache
-          tree -L 2 /opt/hostedtoolcache || true
-      - run: cat /etc/os-release
+      # inspect env after go setup
       - run: which -a go
       - run: go version
       - run: go env
+      - run: pwd && ls -al # for next demo on actions/checkout
+
+
