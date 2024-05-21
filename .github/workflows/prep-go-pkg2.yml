@@ -73,4 +73,11 @@ jobs:
         working-directory: upper
       - run: ./build.xplat.sh
         working-directory: upper
-      # - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v1.0.0"
+          # tag_name: ${{ github.ref_name }}
+          body: "Binaries for the uppper (go) command line tool"
+          files: |
+            upper/bin/upper-*
+          token: ${{ secrets.GITHUB_TOKEN }}
