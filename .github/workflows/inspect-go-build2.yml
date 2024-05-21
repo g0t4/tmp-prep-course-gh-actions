@@ -96,7 +96,7 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - run: go version # before setup-go
+      - run: go version || true # before setup-go # macos-latest doesn't have go in path in my last testing
       - uses: actions/checkout@v4
 
       - uses: actions/setup-go@v5
