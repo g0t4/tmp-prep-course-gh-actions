@@ -13,7 +13,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-24.04, ubuntu-22.04, ubuntu-latest]
+        os: [ubuntu-24.04, ubuntu-22.04, ubuntu-20.04] # , ubuntu-latest] confirmed ubuntu-latest points to 22.04
     runs-on: ${{ matrix.os }}
     steps:
       - run: env
@@ -25,6 +25,14 @@ jobs:
             echo && echo "Listing contents of: $dir"
             ls -al "$dir" || true
           done
+      - name: hosted tool cache
+        run: |
+          echo && echo "Listing contents of: /opt/hostedtoolcache"
+          ls -al /opt/hostedtoolcache || true
+          echo && echo "Listing contents of /opt/hostedtoolcache/go"
+          ls -al /opt/hostedtoolcache/go || true
+          echo && echo tree -L 2 /opt/hostedtoolcache
+          tree -L 2 /opt/hostedtoolcache || true
       - run: cat /etc/os-release
       - run: which -a go
       - run: go version
