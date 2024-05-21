@@ -1,0 +1,16 @@
+name: gh-api
+
+on:
+  push:
+    paths:
+      - ".github/workflows/gh-api.yml"
+  workflow_dispatch: # manual
+
+jobs:
+  gh_cli:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: gh --version
+      - run: gh workflow list
+      - run: gh run list
+      - run: gh repo list
