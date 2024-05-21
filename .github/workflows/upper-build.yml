@@ -42,6 +42,8 @@ jobs:
           cache-dependency-path: upper/go.sum # dont enable this until get to the cache demo topic, leave broken in the log
           # cache: false
           # caching (repo root) by default: hash(go.sum) https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go#caching-dependencies
+      - run: go env
+      - run: which go
       - run: go version
       # FYI offer script alternative for the build process, extol local reproducibility
       # - run: go clean # PRN
