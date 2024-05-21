@@ -16,5 +16,6 @@ jobs:
       - uses: actions/checkout@v4
       - run: gh workflow list # --repo g0t4/tmp-prep-course-gh-actions
       - run: gh run list # --repo g0t4/tmp-prep-course-gh-actions
+      - run: gh api /repos/g0t4/tmp-prep-course-gh-actions/actions/workflows
     env:
       GITHUB_TOKEN: ${{ github.token }}
