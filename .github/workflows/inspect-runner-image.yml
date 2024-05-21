@@ -94,7 +94,7 @@ jobs:
 
   # rearrange to checkout before setup-go so we can use go-version-file: 'upper/go.mod'
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - run: go version # before setup-go
       - uses: actions/checkout@v4
