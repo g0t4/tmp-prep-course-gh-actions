@@ -55,7 +55,6 @@ jobs:
           go build -o "upper-${{ matrix.os }}"
           go test
           ls # after build => upper! (executable)
-          echo
         working-directory: upper
       - if: matrix.os != 'windows-latest'
         run: ./upper-${{ matrix.os }} foo the bar
