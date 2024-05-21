@@ -6,23 +6,26 @@ on:
       - ".github/workflows/gh-api.yml"
   workflow_dispatch: # manual
 
-permissions: {}
+# !!! KEEP IN MIND this is in a PUBLIC REPO
+# permissions: {} # won't block read access to anything that the public can already see (i.e. workflows/actions/pulls/issues/etc)
+#    TLDR in PUBLIC REPOS, permissions are for selectively granting write access
+#    TLDR in PRIVATE REPOS, permissions are meaningful for all values (none/read/write)
+#       and restrictive default (contents: read, metadata: read, packages: read) means you can't do much with the GH CLI for example.
 
 jobs:
   gh_cli:
     runs-on: ubuntu-24.04
+    # permissions: # can set here too
     steps:
       - run: gh --version
       - run: gh auth status
-      - run: gh repo list
-      - uses: actions/checkout@v4
-      - run: gh workflow list # --repo g0t4/tmp-prep-course-gh-actions
-      # - run: gh api /repos/:owner/:repo/actions/workflows/98540801
-      - run: gh api /repos/:owner/:repo/commits/master/status
-      - run: gh run list # --repo g0t4/tmp-prep-course-gh-actions
-      # - run: gh api /repos/g0t4/tmp-prep-course-gh-actions/actions/workflows
-      - run: gh api /repos/:owner/:repo/actions/workflows # placeholders: https://github.com/cli/cli/blob/140edf7327beb9af5a51ee6975fed08648dca9e1/pkg/cmd/api/api.go#L533-L569
-      - run: gh issue list
+      - run: gh repo list # no permissions needed, to list this repo only (workflows are repo specific)
+      - uses: actions/checkout@v4 # contents: read
+      - run: gh workflow list # actions: read
+      - run: gh api /repos/:owner/:repo/commits/master/status # statuses: read
+      - run: gh run list # actions: read
+      - run: gh api /repos/:owner/:repo/actions/workflows # actions: read # FYI placeholders: https://github.com/cli/cli/blob/140edf7327beb9af5a51ee6975fed08648dca9e1/pkg/cmd/api/api.go#L533-L569
+      - run: gh issue list # issues: read
     env:
       # GITHUB_TOKEN: ${{ github.token }} # alt
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
