@@ -17,6 +17,7 @@ jobs:
       - run: gh workflow list # --repo g0t4/tmp-prep-course-gh-actions
       - run: gh run list # --repo g0t4/tmp-prep-course-gh-actions
       # - run: gh api /repos/g0t4/tmp-prep-course-gh-actions/actions/workflows
+      - run: gh api /repos/:owner/:repo/actions/workflows
       - run: gh issue list
     env:
       # GITHUB_TOKEN: ${{ github.token }} # alt
