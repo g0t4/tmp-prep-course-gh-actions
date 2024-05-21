@@ -15,6 +15,8 @@ func main() {
 	//    echo | ./upper  # \n
 	//    ./upper  # \n
 
+	max_args := 4
+	
 	// stat STDIN
 	stat, err := os.Stdin.Stat()
 	if err != nil {
