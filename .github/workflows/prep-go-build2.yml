@@ -1,9 +1,9 @@
-name: inspect go build2
+name: prep go build2
 
 on:
   push:
     paths:
-      - ".github/workflows/inspect-go-build2.yml"
+      - ".github/workflows/prep-go-build2.yml"
       - "upper/**"
   workflow_dispatch: # manual
 
@@ -118,6 +118,7 @@ jobs:
           ./upper foo the bar
         working-directory: upper
 
+      # m5 => first step to upload artifact, and download and run it, separate of cross compile next
       - uses: actions/upload-artifact@v4
         with:
           name: upper
