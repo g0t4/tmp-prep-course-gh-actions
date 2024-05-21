@@ -22,3 +22,5 @@ do
     env GOOS=$GOOS GOARCH=$GOARCH go build -o $output_name .
 done
 
+echo "tree"
+tree
