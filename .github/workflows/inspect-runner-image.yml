@@ -23,7 +23,7 @@ jobs:
 
           for dir in "${dirs[@]}"; do
             echo && echo "Listing contents of: $dir"
-            ls -al "$dir"
+            ls -al "$dir" || true
           done
       - run: cat /etc/os-release
       - run: which -a go
