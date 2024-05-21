@@ -50,6 +50,7 @@ jobs:
       - run: go mod download # PURPOSE: consolidate downloads to a single step to see the time impact w/ and w/o caching (do not need this otherwise, b/c go build will download dependencies as needed - during build,test,etc) - aside: another benefit => make sure deps are available before starting the build
       # - run: go env # dump env to review config on the runner, i.e. go env GOPATH, FYI setup-go dumps this too
       - run: go build -o "upper-${{ matrix.os }}"
+      - run: go version "upper-${{ matrix.os }}"
       - run: go test
       - run: ls -al # after build show outputs too
         if: matrix.os != 'windows-latest'
