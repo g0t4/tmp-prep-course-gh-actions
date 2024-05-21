@@ -1,4 +1,4 @@
-name: inspect runner image
+name: inspect go build2
 
 on:
   push:
