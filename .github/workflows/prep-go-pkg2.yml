@@ -73,5 +73,4 @@ jobs:
         working-directory: upper
       - run: ./build.xplat.sh
         working-directory: upper
-      - run: ls # list files after build
       # - uses: softprops/action-gh-release@v1
