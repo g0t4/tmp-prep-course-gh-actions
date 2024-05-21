@@ -17,7 +17,7 @@ jobs:
       - run: gh workflow list # --repo g0t4/tmp-prep-course-gh-actions
       - run: gh run list # --repo g0t4/tmp-prep-course-gh-actions
       # - run: gh api /repos/g0t4/tmp-prep-course-gh-actions/actions/workflows
-      - run: gh api /repos/:owner/:repo/actions/workflows
+      - run: gh api /repos/:owner/:repo/actions/workflows # placeholders: https://github.com/cli/cli/blob/140edf7327beb9af5a51ee6975fed08648dca9e1/pkg/cmd/api/api.go#L533-L569
       - run: gh issue list
     env:
       # GITHUB_TOKEN: ${{ github.token }} # alt
