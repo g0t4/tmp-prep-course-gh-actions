@@ -3,7 +3,7 @@ name: inspect runner image
 on:
   push:
     paths:
-      - ".github/workflows/inspect-runner-image.yml"
+      - ".github/workflows/inspect-go-build2.yml"
       - "upper/**"
   workflow_dispatch: # manual
 
