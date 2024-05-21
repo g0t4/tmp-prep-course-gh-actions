@@ -80,7 +80,8 @@ jobs:
       - run: pwd && ls -al # for next demo on actions/checkout
       - uses: actions/checkout@v4
       - run: pwd && ls -al # after checkout
-
+      - run: go mod download
+        working-directory: upper
       - run: |
           ls -al # before build
           go build
