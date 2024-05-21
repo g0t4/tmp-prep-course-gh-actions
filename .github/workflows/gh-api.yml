@@ -12,8 +12,8 @@ jobs:
     steps:
       - run: gh --version
       - run: gh auth status
+      - run: gh repo list
       - run: gh workflow list
       - run: gh run list
-      - run: gh repo list
     env:
       GITHUB_TOKEN: ${{ github.token }}
