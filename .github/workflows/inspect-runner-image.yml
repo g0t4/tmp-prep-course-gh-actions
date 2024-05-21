@@ -28,6 +28,7 @@ jobs:
           done
       - name: hosted tool cache
         run: |
+          sudo apt install -y tree
           echo && echo tree -L 3 /opt/hostedtoolcache
           tree -L 2 /opt/hostedtoolcache || true
       - run: cat /etc/os-release
