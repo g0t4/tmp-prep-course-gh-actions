@@ -71,7 +71,7 @@ jobs:
           cache-dependency-path: "upper/go.sum"
       - run: go mod download
         working-directory: upper
-      - run: build.xplat.sh
+      - run: ./build.xplat.sh
         working-directory: upper
       - run: ls # list files after build
       # - uses: softprops/action-gh-release@v1
