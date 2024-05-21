@@ -56,23 +56,13 @@ jobs:
   #         go test
   #         ls # after build => upper! (executable)
   #       working-directory: upper
-  #     - if: matrix.os != 'windows-latest'
-  #       run: ./upper-${{ matrix.os }} foo the bar
-  #       working-directory: upper
-  #     - if: matrix.os == 'windows-latest'
-  #       run: .\upper-${{ matrix.os }} foo the bar
-  #       working-directory: upper
   #     - uses: actions/upload-artifact@v4
   #       with:
   #         name: "upper-${{ matrix.os }}"
   #         path: "upper/upper-${{ matrix.os }}"
 
   pkg2: # xplat cross compile script + create release instead of upload artifact
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        # matrix benefit => run entire build and tests on each platform
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -81,20 +71,6 @@ jobs:
           cache-dependency-path: "upper/go.sum"
       - run: go mod download
         working-directory: upper
-      - run: |
-          go version
-          ls # before build, btw using ls so this runs on windows too
-          go build -o "upper-${{ matrix.os }}"
-          go test
-          ls # after build => upper! (executable)
+      - run: build.xplat.sh
         working-directory: upper
-      - if: matrix.os != 'windows-latest'
-        run: ./upper-${{ matrix.os }} foo the bar
-        working-directory: upper
-      - if: matrix.os == 'windows-latest'
-        run: .\upper-${{ matrix.os }} foo the bar
-        working-directory: upper
-      - uses: actions/upload-artifact@v4
-        with:
-          name: "upper-${{ matrix.os }}"
-          path: "upper/upper-${{ matrix.os }}"
+      # - uses: softprops/action-gh-release@v1
