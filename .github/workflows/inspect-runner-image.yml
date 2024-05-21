@@ -17,6 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - run: env
+      # instead of trusting the runner image readmes, you can validate what is available in a given runner
       - name: show path dir contents w/ ls
         run: |
           IFS=':' read -r -a dirs <<< "$PATH"
@@ -27,10 +28,6 @@ jobs:
           done
       - name: hosted tool cache
         run: |
-          echo && echo "Listing contents of: /opt/hostedtoolcache"
-          ls -al /opt/hostedtoolcache || true
-          echo && echo "Listing contents of /opt/hostedtoolcache/go"
-          ls -al /opt/hostedtoolcache/go || true
           echo && echo tree -L 2 /opt/hostedtoolcache
           tree -L 2 /opt/hostedtoolcache || true
       - run: cat /etc/os-release
