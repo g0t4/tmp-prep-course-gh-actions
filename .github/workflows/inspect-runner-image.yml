@@ -62,5 +62,6 @@ jobs:
       - run: go version
       - run: go env
       - run: pwd && ls -al # for next demo on actions/checkout
-
+      - uses: actions/checkout@v4
+      - run: pwd && ls -al # after checkout
 
