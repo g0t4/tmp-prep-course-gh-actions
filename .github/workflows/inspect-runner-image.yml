@@ -47,7 +47,8 @@ jobs:
       # setup-go:
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.22' # ubuntu 24.04 already has 1.22.3, but 22.04 will switch from 1.21.10=>1.22.3 (from its tool cache)
+          #go-version: '1.22' # ubuntu 24.04 already has 1.22.3, but 22.04 will switch from 1.21.10=>1.22.3 (from its tool cache) => both find the version in their cache
+          go-version: '1.22.2' # not in tool cache, must be downloaded
       - name: show path dir contents w/ ls
         run: |
           IFS=':' read -r -a dirs <<< "$PATH"
