@@ -65,21 +65,47 @@ jobs:
   #     - uses: actions/checkout@v4
   #     - run: pwd && ls -al # after checkout
 
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: which -a go
+  #     - run: go version # before setup-go
+  #     - uses: actions/setup-go@v5
+  #       with:
+  #         #go-version: '1.22' # ubuntu 24.04 already has 1.22.3, but 22.04 will switch from 1.21.10=>1.22.3 (from its tool cache) => both find the version in their cache
+  #         go-version: "1.22.2" # not in tool cache, must be downloaded
+  #         #! move after checkout so we can use go-version-file: 'upper/go.mod'
+  #     - run: which -a go
+  #     - run: go version
+
+  #     - run: pwd && ls -al # for next demo on actions/checkout
+  #     - uses: actions/checkout@v4
+  #     - run: pwd && ls -al # after checkout
+  #     - run: go mod download
+  #       working-directory: upper
+  #     - run: |
+  #         ls -al # before build
+  #         go build
+  #         go test
+  #         ls -al # after build => upper! (executable)
+  #         echo
+  #         ./upper foo the bar
+  #       working-directory: upper
+
+  # rearrange to checkout before setup-go so we can use go-version-file: 'upper/go.mod'
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: which -a go
       - run: go version # before setup-go
+      - uses: actions/checkout@v4
+
       - uses: actions/setup-go@v5
         with:
           #go-version: '1.22' # ubuntu 24.04 already has 1.22.3, but 22.04 will switch from 1.21.10=>1.22.3 (from its tool cache) => both find the version in their cache
           go-version: "1.22.2" # not in tool cache, must be downloaded
-      - run: which -a go
+          #! move after checkout so we can use go-version-file: 'upper/go.mod'
       - run: go version
 
-      - run: pwd && ls -al # for next demo on actions/checkout
-      - uses: actions/checkout@v4
-      - run: pwd && ls -al # after checkout
       - run: go mod download
         working-directory: upper
       - run: |
