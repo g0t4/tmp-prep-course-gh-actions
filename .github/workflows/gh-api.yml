@@ -9,8 +9,8 @@ on:
 jobs:
   gh_cli:
     permissions:
-      actions: none
-      contents: read
+      #actions: none
+      contents: none
     runs-on: ubuntu-24.04
     steps:
       - run: gh --version
