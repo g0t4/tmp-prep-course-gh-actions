@@ -34,12 +34,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      # - uses: actions/setup-go@v5
-      #   with:
-      #     go-version: 1.22
-      #     #
-      #     # show in logs: Warning: Restore cache failed: Dependencies file is not found ... Supported file pattern: go.sum
-      #     cache-dependency-path: upper/go.sum # dont enable this until get to the cache demo topic, leave broken in the log
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.21
+          #
+          # show in logs: Warning: Restore cache failed: Dependencies file is not found ... Supported file pattern: go.sum
+          cache-dependency-path: upper/go.sum # dont enable this until get to the cache demo topic, leave broken in the log
           # cache: false
           # caching (repo root) by default: hash(go.sum) https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go#caching-dependencies
       - run: go version
