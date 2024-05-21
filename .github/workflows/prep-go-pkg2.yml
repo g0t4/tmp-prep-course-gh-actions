@@ -38,7 +38,7 @@ jobs:
   pkg2:
     strategy:
       matrix:
-        os: [ubuntu-latest] # , windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         # matrix benefit => run entire build and tests on each platform
     runs-on: ${{ matrix.os }}
     steps:
@@ -51,7 +51,7 @@ jobs:
         working-directory: upper
       - run: |
           go version
-          ls # before build
+          ls # before build, btw using ls so this runs on windows too
           go build -o "upper-${{ matrix.os }}"
           go test
           ls # after build => upper! (executable)
