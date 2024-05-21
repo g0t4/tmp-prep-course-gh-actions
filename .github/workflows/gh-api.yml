@@ -6,9 +6,10 @@ on:
       - ".github/workflows/gh-api.yml"
   workflow_dispatch: # manual
 
+permissions: {}
+
 jobs:
   gh_cli:
-    permissions: {} 
     runs-on: ubuntu-24.04
     steps:
       - run: gh --version
