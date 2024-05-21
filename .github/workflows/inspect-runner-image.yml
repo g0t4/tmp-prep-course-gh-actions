@@ -35,33 +35,57 @@ jobs:
   #     - run: which -a go
   #     - run: go version
   #     - run: go env
+  # build:
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-24.04, ubuntu-22.04] #, ubuntu-20.04] # , ubuntu-latest] confirmed ubuntu-latest points to 22.04
+  #   runs-on: ${{ matrix.os }}
+  #   steps:
+  #     # instead of trusting the runner image readmes, you can validate what is available in a given runner
+  #     - run: which -a go
+  #     - run: go version # before setup-go
+  #     # setup-go:
+  #     - uses: actions/setup-go@v5
+  #       with:
+  #         #go-version: '1.22' # ubuntu 24.04 already has 1.22.3, but 22.04 will switch from 1.21.10=>1.22.3 (from its tool cache) => both find the version in their cache
+  #         go-version: '1.22.2' # not in tool cache, must be downloaded
+  #     - name: show path dir contents w/ ls
+  #       run: |
+  #         IFS=':' read -r -a dirs <<< "$PATH"
+
+  #         for dir in "${dirs[@]}"; do
+  #           echo && echo "Listing contents of: $dir"
+  #           ls -al "$dir" || true
+  #         done
+  #     # inspect env after go setup
+  #     - run: which -a go
+  #     - run: go version
+  #     - run: go env
+  #     - run: pwd && ls -al # for next demo on actions/checkout
+  #     - uses: actions/checkout@v4
+  #     - run: pwd && ls -al # after checkout
+
   build:
-    strategy:
-      matrix:
-        os: [ubuntu-24.04, ubuntu-22.04] #, ubuntu-20.04] # , ubuntu-latest] confirmed ubuntu-latest points to 22.04
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
-      # instead of trusting the runner image readmes, you can validate what is available in a given runner
       - run: which -a go
       - run: go version # before setup-go
-      # setup-go:
       - uses: actions/setup-go@v5
         with:
           #go-version: '1.22' # ubuntu 24.04 already has 1.22.3, but 22.04 will switch from 1.21.10=>1.22.3 (from its tool cache) => both find the version in their cache
-          go-version: '1.22.2' # not in tool cache, must be downloaded
-      - name: show path dir contents w/ ls
-        run: |
-          IFS=':' read -r -a dirs <<< "$PATH"
-
-          for dir in "${dirs[@]}"; do
-            echo && echo "Listing contents of: $dir"
-            ls -al "$dir" || true
-          done
-      # inspect env after go setup
+          go-version: "1.22.2" # not in tool cache, must be downloaded
       - run: which -a go
       - run: go version
-      - run: go env
+
       - run: pwd && ls -al # for next demo on actions/checkout
       - uses: actions/checkout@v4
       - run: pwd && ls -al # after checkout
 
+      - run: |
+          ls -al # before build
+          go build
+          go test
+          ls -al # after build => upper! (executable)
+          echo
+          ./upper foo the bar
+        working-directory: upper
