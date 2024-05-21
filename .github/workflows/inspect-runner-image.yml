@@ -16,6 +16,15 @@ jobs:
         os: [ubuntu-24.04, ubuntu-22.04, ubuntu-latest]
     runs-on: ubuntu-24.04
     steps:
+      - run: env
+      - name: show path dir contents w/ ls
+        run: |
+          IFS=':' read -r -a dirs <<< "$PATH"
+
+          for dir in "${dirs[@]}"; do
+            echo && echo "Listing contents of: $dir"
+            ls -al "$dir"
+          done
       - run: cat /etc/os-release
       - run: which -a go
       - run: go version
