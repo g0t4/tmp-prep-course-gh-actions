@@ -8,9 +8,6 @@ on:
 
 jobs:
   gh_cli:
-    permissions:
-      #actions: none
-      contents: none
     runs-on: ubuntu-24.04
     steps:
       - run: gh --version
@@ -18,6 +15,7 @@ jobs:
       - run: gh repo list
       - uses: actions/checkout@v4
       - run: gh workflow list # --repo g0t4/tmp-prep-course-gh-actions
+      - run: gh api /repos/:owner/:repo/actions/workflows/98540801
       - run: gh run list # --repo g0t4/tmp-prep-course-gh-actions
       # - run: gh api /repos/g0t4/tmp-prep-course-gh-actions/actions/workflows
       - run: gh api /repos/:owner/:repo/actions/workflows # placeholders: https://github.com/cli/cli/blob/140edf7327beb9af5a51ee6975fed08648dca9e1/pkg/cmd/api/api.go#L533-L569
