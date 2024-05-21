@@ -10,29 +10,55 @@ on:
 # FYI go guide: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
 jobs:
-  # rearrange to checkout before setup-go so we can use go-version-file: 'upper/go.mod'
-  build:
-    runs-on: macos-latest
+  # pkg2: # as of m5 upload-artifact demo
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-go@v5
+  #       with:
+  #         go-version-file: "upper/go.mod"
+  #         cache-dependency-path: "upper/go.sum"
+  #     - run: go mod download
+  #       working-directory: upper
+  #     - run: |
+  #         go version
+  #         ls # before build
+  #         go build
+  #         go test
+  #         ls # after build => upper! (executable)
+  #         echo
+  #         ./upper foo the bar
+  #       working-directory: upper
+  #
+  #     - uses: actions/upload-artifact@v4
+  #       with:
+  #         name: upper
+  #         path: upper/upper
+
+  pkg2:
+    strategy:
+      matrix:
+        os: [ubuntu-latest] # , windows-latest, macos-latest]
+        # matrix benefit => run entire build and tests on each platform
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
           go-version-file: "upper/go.mod"
           cache-dependency-path: "upper/go.sum"
-      - run: go version
-
       - run: go mod download
         working-directory: upper
       - run: |
+          go version
           ls # before build
-          go build
+          go build -o "upper-${{ matrix.os }}"
           go test
           ls # after build => upper! (executable)
           echo
           ./upper foo the bar
         working-directory: upper
-
       - uses: actions/upload-artifact@v4
         with:
-          name: upper
-          path: upper/upper
+          name: "upper-${{ matrix.os }}"
+          path: "upper/upper-${{ matrix.os }}"
