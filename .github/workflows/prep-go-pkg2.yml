@@ -61,7 +61,7 @@ jobs:
   #         name: "upper-${{ matrix.os }}"
   #         path: "upper/upper-${{ matrix.os }}"
 
-  pkg2: # xplat cross compile script + create release instead of upload artifact
+  cross: # xplat cross compile script + create release instead of upload artifact
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
