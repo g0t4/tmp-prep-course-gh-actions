@@ -42,7 +42,7 @@ jobs:
       #     cache-dependency-path: upper/go.sum # dont enable this until get to the cache demo topic, leave broken in the log
           # cache: false
           # caching (repo root) by default: hash(go.sum) https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go#caching-dependencies
-
+      - run: go version
       # FYI offer script alternative for the build process, extol local reproducibility
       # - run: go clean # PRN
       - run: go mod download # PURPOSE: consolidate downloads to a single step to see the time impact w/ and w/o caching (do not need this otherwise, b/c go build will download dependencies as needed - during build,test,etc) - aside: another benefit => make sure deps are available before starting the build
