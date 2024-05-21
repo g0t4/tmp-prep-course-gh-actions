@@ -48,7 +48,7 @@ jobs:
       - run: which go
       - run: go version
       - run: go version && pwd
-        working-directory: .github/
+        working-directory: .github/ # go to dir w/o go.mod to see `go version` setup => b/c `go version` is affected by the presence of a go.mod file in the current directory
       # FYI offer script alternative for the build process, extol local reproducibility
       # - run: go clean # PRN
       - run: go mod download # PURPOSE: consolidate downloads to a single step to see the time impact w/ and w/o caching (do not need this otherwise, b/c go build will download dependencies as needed - during build,test,etc) - aside: another benefit => make sure deps are available before starting the build
