@@ -17,6 +17,7 @@ jobs:
       - name: generate a random password for mysql
         id: generate
         run: echo "RANDOM_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> "$GITHUB_ENV"
+      - run: echo ${{ env.RANDOM_PASSWORD }}
 
   # testing:
   #   needs: generate # *** must be after gen password!
