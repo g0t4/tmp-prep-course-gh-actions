@@ -1,9 +1,9 @@
-name: cd-deploy2-1-build
+name: cd-deploy2-2-deploy
 
 on:
   push:
     paths:
-      - ".github/workflows/cd-deploy2-1-build.yml"
+      - ".github/workflows/cd-deploy2-2-deploy.yml"
       - "api/**"
   workflow_dispatch: # manual
 
