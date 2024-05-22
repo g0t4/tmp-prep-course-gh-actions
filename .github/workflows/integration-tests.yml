@@ -1,36 +1,29 @@
-name: deployer
+name: integration testing
 
 on:
   push:
     paths:
-      - ".github/workflows/deployer.yml"
+      - ".github/workflows/integration-tests.yml"
   workflow_dispatch: # manual
 
 jobs:
-  # predeploy:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - run: echo building
-  #     - run: echo "BUTLER_MODEL= ${{ vars.BUTLER_MODEL}}"
-  #     # - run: echo "DEPLOY_KEY= ${{ secrets.DEPLOY_KEY }}" # warning if try to include this
-
   generate:
-    # needs: predeploy
+    # hook this into CD pipeline, after build/unit tests
     runs-on: ubuntu-latest
     outputs:
       RANDOM_PASSWORD: ${{ env.RANDOM_PASSWORD }} # two birds, one stone (use ENV locally to pass and next job uses this jobs output) # evaluated after steps, thus RANDOM_PASSWORD is set
       # RANDOM_PASSWORD: ${{ steps.generate.outputs.RANDOM_PASSWORD }} # alternative is to use outputs in this job
     steps:
-      - id: generate
+      - name: generate a random password for mysql
+        id: generate
         run: echo "RANDOM_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> "$GITHUB_ENV"
 
   testing:
-    # needs: predeploy
-    needs: generate
-    # environment: staging
+    needs: generate # *** must be after gen password!
     runs-on: ubuntu-latest
     container:
-      image: mysql:5.7 # TODO client only image?
+      image: mysql:5.7
+      # this will simulate a client that connects to the mysql database (i.e. an intergation test runner)
     services:
       mysqlserver:
         image: mysql:5.7
@@ -41,25 +34,12 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      # - run: mysql --version
+      # steps run in job container (has mysql CLI)
+      - run: mysql --version
       - run: echo "RANDOM_PASSWORD= ${{ needs.generate.outputs.RANDOM_PASSWORD }}"
       - run: mysql -h mysqlserver -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }} -e "SHOW DATABASES;"
       - run: echo "job.services= ${{ toJson(job.services)}}" # { mysql: { id, ports:[], network } }
       - run: echo "job.container= ${{ toJson(job.container)}}" # {id, network }
       # FYI alternative is just use docker compose to orchestrate it all for you and plug it into a step, and the reason I suggest that is b/c you can run it locally and test it w/o pushing or using smth like act, but YMMV so service containers exist too
 
-  # deploy:
-  #   needs: predeploy
-  #   runs-on: ubuntu-latest
-  #   environment: production
-
-  # deploy:
-  #   needs: predeploy
-  #   runs-on: ubuntu-latest
-  #   environment: production
-
-  #   steps:
-  #     - run: echo "BUTLER_MODEL= ${{ vars.BUTLER_MODEL}}"
-  #     - run: echo "DEPLOY_KEY= ${{ secrets.DEPLOY_KEY }}" # i.e. defined only in prod/stating
-  #     - run: echo "deploying"
-  #     - run: echo "deployed"
+      # ... hook this into CD pipeline, i.e. before cd-deploy
