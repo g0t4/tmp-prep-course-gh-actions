@@ -39,7 +39,7 @@ jobs:
       - id: webapp-deploy
         uses: azure/webapps-deploy@v3
         with:
-          app-name: gh-actions-web-apis
+          app-name: gh-actions-web-api
           images: weshigbee/actions-web-test:latest
           resource-group-name: gh-actions
           # FYI
