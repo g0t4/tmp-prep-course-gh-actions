@@ -17,10 +17,10 @@ jobs:
       - name: generate a random password for mysql
         id: generate
         run: echo "RANDOM_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> "$GITHUB_ENV"
-      - run: echo ${{ env.RANDOM_PASSWORD }}
-      # bonus, mask RANDOM PASSWORD:
-      - run: echo "::add-mask::$RANDOM_PASSWORD"
-      - run: echo ${{ env.RANDOM_PASSWORD}}
+      - run: echo ${{ env.RANDOM_PASSWORD }} # password is visible
+      - run: echo "::add-mask::$RANDOM_PASSWORD" # workflow commands to mask future occurences of the password too (can't go back in time)
+      - run: echo ${{ env.RANDOM_PASSWORD}} # password not visible
+
 
   # testing:
   #   needs: generate # *** must be after gen password!
