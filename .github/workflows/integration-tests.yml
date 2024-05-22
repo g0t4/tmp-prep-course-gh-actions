@@ -19,30 +19,36 @@ jobs:
         run: echo "RANDOM_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> "$GITHUB_ENV"
       - run: echo ${{ env.RANDOM_PASSWORD }} # password is visible
 
-  testing:
+  # testing job for Step 1 demo:
+  # testing1:
+  #   needs: generate # *** must be after gen password!
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo ${{ needs.generate.outputs.RANDOM_PASSWORD }}
+
+  testing2:
     needs: generate # *** must be after gen password!
     runs-on: ubuntu-latest
+    container:
+      image: mysql:5.
+      # FYI mysql also exists on standard runners
+      # this will simulate a client that connects to the mysql database (i.e. an intergation test runner)
+    services:
+      mysqlserver:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ needs.generate.outputs.RANDOM_PASSWORD }}
+          MYSQL_DATABASE: foothebar
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      - run: echo ${{ needs.generate.outputs.RANDOM_PASSWORD }}
-  #   container:
-  #     image: mysql:5.7
-  #     # this will simulate a client that connects to the mysql database (i.e. an intergation test runner)
-  #   services:
-  #     mysqlserver:
-  #       image: mysql:5.7
-  #       env:
-  #         MYSQL_ROOT_PASSWORD: ${{ needs.generate.outputs.RANDOM_PASSWORD }}
-  #         MYSQL_DATABASE: foothebar
-  #       ports:
-  #         - 3306:3306
-  #       options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-  #   steps:
-  #     # steps run in job container (has mysql CLI)
-  #     - run: mysql --version
-  #     - run: echo "RANDOM_PASSWORD= ${{ needs.generate.outputs.RANDOM_PASSWORD }}"
-  #     - run: mysql -h mysqlserver -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }} -e "SHOW DATABASES;"
-  #     - run: echo "job.services= ${{ toJson(job.services)}}" # { mysql: { id, ports:[], network } }
-  #     - run: echo "job.container= ${{ toJson(job.container)}}" # {id, network }
-  #     # FYI alternative is just use docker compose to orchestrate it all for you and plug it into a step, and the reason I suggest that is b/c you can run it locally and test it w/o pushing or using smth like act, but YMMV so service containers exist too
+      # run steps are executed in the job container (hence the name, a job container b/c these are job steps)
+      - run: mysql --version
+      - run: echo "RANDOM_PASSWORD=${{ needs.generate.outputs.RANDOM_PASSWORD }}"
+      - run: mysql -h mysqlserver -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }} -e "SHOW DATABASES;"
+      - run: echo "job.services= ${{ toJson(job.services)}}" # { mysql: { id, ports:[], network } }
+      - run: echo "job.container= ${{ toJson(job.container)}}" # {id, network }
+      # FYI alternative is just use docker compose to orchestrate it all for you and plug it into a step, and the reason I suggest that is b/c you can run it locally and test it w/o pushing or using smth like act, but YMMV so service containers exist too
 
-  #     # ... hook this into CD pipeline, i.e. before cd-deploy
+      # ... hook this into CD pipeline, i.e. before cd-deploy
