@@ -29,4 +29,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: docker tag upper ghcr.io/${{ github.repository_owner }}/upper:${{ github.ref_name }}
       # mention can tag with ${{ github.ref_name }} and filter on tags only (like we did with Releases)
-      - run: docker push ghcr.io/${{ github.repository_owner }}/upper:latest
+      - run: docker push ghcr.io/${{ github.repository_owner }}/upper:${{ github.ref_name }}
