@@ -20,7 +20,10 @@ do
 
     # workflow command to group:
     echo "::group::Building $output_name..."
-    env GOOS=$GOOS GOARCH=$GOARCH go build -o $output_name .
+
+    go clean # remove prior build (triggers more logging too)
+    env GOOS=$GOOS GOARCH=$GOARCH go build -x -o $output_name .
+
     echo "::endgroup::"
 
 done
