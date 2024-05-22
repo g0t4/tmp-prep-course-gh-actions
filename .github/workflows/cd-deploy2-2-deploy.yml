@@ -27,7 +27,7 @@ jobs:
     needs: build # *** build must complete first (ensure image is pushed)
     runs-on: ubuntu-latest
     environment:
-      name: production
+      name: production2
       url: ${{ steps.webapp-deploy.outputs.webapp-url }} # once app deploys, azure action returns a URL (below), we can have that show up in the deployments tab
     steps:
       - name: Log in to Azure
@@ -36,8 +36,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }} # FYI env specific secret to restrict access and require approval
 
       #     curl  "http://gh-actions-web-api.azurewebsites.net/" => note the current app version
-      - name: deploy pre-built image to an existing Azure Web App (for Containers)
-        id: webapp-deploy
+      - id: webapp-deploy
         uses: azure/webapps-deploy@v3
         with:
           app-name: gh-actions-web-apis
