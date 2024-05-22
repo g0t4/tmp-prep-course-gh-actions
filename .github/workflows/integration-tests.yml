@@ -18,6 +18,9 @@ jobs:
         id: generate
         run: echo "RANDOM_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> "$GITHUB_ENV"
       - run: echo ${{ env.RANDOM_PASSWORD }}
+      # bonus, mask RANDOM PASSWORD:
+      - run: echo "::add-mask::$RANDOM_PASSWORD"
+      - run: echo ${{ env.RANDOM_PASSWORD}}
 
   # testing:
   #   needs: generate # *** must be after gen password!
