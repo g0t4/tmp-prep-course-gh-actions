@@ -29,10 +29,10 @@ jobs:
   testing2:
     needs: generate # *** must be after gen password!
     runs-on: ubuntu-latest
-    container:
-      image: mysql:5.7
-      # FYI mysql also exists on standard runners
-      # this will simulate a client that connects to the mysql database (i.e. an intergation test runner)
+    # container:
+    #   image: mysql:5.7
+    #   # FYI mysql also exists on standard runners
+    #   # this will simulate a client that connects to the mysql database (i.e. an intergation test runner)
     services:
       mysqlserver:
         image: mysql:5.7
