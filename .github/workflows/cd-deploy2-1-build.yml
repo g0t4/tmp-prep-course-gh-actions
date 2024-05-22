@@ -1,4 +1,4 @@
-name: cd-deploy
+name: cd-deploy2-1-build
 
 on:
   push:
