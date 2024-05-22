@@ -18,8 +18,11 @@ do
         output_name+='.exe'
     fi
 
-    echo "Building $output_name..."
+    # workflow command to group:
+    echo "::group::Building $output_name..."
     env GOOS=$GOOS GOARCH=$GOARCH go build -o $output_name .
+    echo "::endgroup::"
+
 done
 
 echo "tree"
