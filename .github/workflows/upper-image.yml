@@ -11,12 +11,9 @@ permissions:
   packages: write
 
 jobs:
-  build:
-    name: build-it
+  image:
+    name: image-pkg
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: upper
     steps:
       - uses: actions/checkout@v4
       - run: docker version
@@ -29,6 +26,5 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: docker tag upper ghcr.io/${{ github.repository_owner }}/upper:latest
-      # PRN use action to gen tags and labels/annotations?
       - run: docker push ghcr.io/${{ github.repository_owner }}/upper:latest
-      # PRN also tag version? if ref is tags/v*
+
