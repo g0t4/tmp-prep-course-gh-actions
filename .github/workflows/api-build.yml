@@ -19,10 +19,10 @@ jobs:
         working-directory: net6
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 9.0.x
-          dotnet-quality: preview
+      # - uses: actions/setup-dotnet@v4
+      #   with:
+      #     dotnet-version: 9.0.x
+      #     dotnet-quality: preview
       - run: |
           pwd
           dotnet --version
