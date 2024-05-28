@@ -27,6 +27,7 @@ jobs:
       - run: |
           pwd
           dotnet --version
+          which -a dotnet
       - run: dotnet --list-runtimes
       - run: dotnet --list-sdks
       - run: dotnet build
