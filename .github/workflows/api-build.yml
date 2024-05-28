@@ -30,6 +30,7 @@ jobs:
           which -a dotnet
           ls -al /usr/bin/dotnet
           ls -al /bin/dotnet
+          ls -al /usr/share/dotnet
       - run: dotnet --list-runtimes
       - run: dotnet --list-sdks
       - run: dotnet build
