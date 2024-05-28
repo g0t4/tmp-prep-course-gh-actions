@@ -32,8 +32,6 @@ jobs:
           ls -al /bin/dotnet
           ls -al /usr/share/dotnet
           apt list | grep -i dotnet
-          dpkg -S /usr/bin/dotnet
-          dpkg -S /bin/dotnet
       - run: dotnet --list-runtimes
       - run: dotnet --list-sdks
       - run: dotnet build
