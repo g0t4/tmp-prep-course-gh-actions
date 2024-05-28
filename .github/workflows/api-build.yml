@@ -28,6 +28,8 @@ jobs:
           pwd
           dotnet --version
           which -a dotnet
+          ls -al /usr/bin/dotnet
+          ls -al /bin/dotnet
       - run: dotnet --list-runtimes
       - run: dotnet --list-sdks
       - run: dotnet build
