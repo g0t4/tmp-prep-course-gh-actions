@@ -13,4 +13,4 @@ jobs:
     steps:
       - run: go version
       - run: go build
-        working-directory: ./upper
+        working-directory: upper
