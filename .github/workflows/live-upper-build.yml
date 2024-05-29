@@ -12,5 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: go version
+      - uses: actions/checkout@v4
       - run: go build
-        working-directory: upper
+        working-directory: ./upper
