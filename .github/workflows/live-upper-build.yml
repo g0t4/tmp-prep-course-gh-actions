@@ -1,9 +1,9 @@
-name: upper-build
+name: live-upper-build
 
 on:
   push:
     paths:
-      - ".github/workflows/upper-build.yml"
+      - ".github/workflows/live-upper-build.yml"
       - "upper/**"
   workflow_dispatch: # manual
 
