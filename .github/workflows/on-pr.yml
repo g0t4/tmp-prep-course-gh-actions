@@ -1,0 +1,10 @@
+name: on-pr
+
+on:
+  pull_request:
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - run: "echo on-pr'ing"
