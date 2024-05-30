@@ -2,11 +2,13 @@
 name: openai review
 
 on:
-  pull_request:
-    types: [opened, edited, reopened, synchronize]
-    # use edited so can tweak permissions w/o recreate a new PR on changes to this workflow
+# # uncomment to make workflow run, be careful to consider who can trigger a PR to trigger this and what perms they are granted
+#  pull_request:
+#    types: [opened, edited, reopened, synchronize]
+#    # use edited so can tweak permissions w/o recreate a new PR on changes to this workflow
 
-permissions: write-all # action docs suggest this but lets scale it back?
+# permissions: write-all # action docs suggest this but lets scale it back...
+# do not use write-all in reality! and esp careful in a public repo
 
 jobs:
   review:
