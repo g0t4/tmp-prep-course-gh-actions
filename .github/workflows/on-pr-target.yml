@@ -1,0 +1,10 @@
+name: on-pr-target
+
+on:
+  pull_request_target:
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo on-pr-target-ing
