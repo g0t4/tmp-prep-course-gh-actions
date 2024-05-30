@@ -7,4 +7,4 @@ jobs:
   review:
     runs-on: ubuntu-latest
     steps:
-      - run: "echo on-pr'ing"
+      - run: echo on-pr-ing
