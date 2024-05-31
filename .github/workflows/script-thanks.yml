@@ -37,4 +37,5 @@ jobs:
 
             // make comment id available to subsequent steps
             return comment.data.id;
+
       - run: echo 'comment id=${{ steps.issue_script.outputs.result }}'
