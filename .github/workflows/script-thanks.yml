@@ -33,4 +33,4 @@ jobs:
             // console.log(comment.data);
             return comment; // return comment
           # result-encoding:
-      - run: echo "comment id= ${{ toJson(steps.issue_script.outputs.result) }}"
+      - run: echo 'comment id= ${{ toJson(steps.issue_script.outputs.result) }}'
