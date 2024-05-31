@@ -34,4 +34,4 @@ jobs:
             // return comment; // return comment
             return comment.data.id;
           # result-encoding: # "json" default, also "string"
-      - run: echo 'comment id= ${{ steps.issue_script.outputs.result }}'
+      - run: echo 'comment id=${{ steps.issue_script.outputs.result }}'
