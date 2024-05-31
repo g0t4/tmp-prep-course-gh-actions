@@ -30,8 +30,8 @@ jobs:
               body: "Thanks for your contribution!"
             });
             console.log(`comment id: ${comment.data.id}`);
-            // console.log(comment.data);
-            return comment; // return comment
-          # result-encoding:
-      # - run: echo 'comment id= ${{ toJson(steps.issue_script.outputs.result) }}'
-      - run: echo 'comment id= ${{ steps.issue_script.outputs.result.data.id }}'
+            console.log(comment.data);
+            // return comment; // return comment
+            return comment.data.id;
+          # result-encoding: # "json" default, also "string"
+      - run: echo 'comment id= ${{ steps.issue_script.outputs.result }}'
