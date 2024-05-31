@@ -3,6 +3,7 @@ name: script-thanks
 on:
   issues:
     types: opened
+  workflow_dispatch: # manual
 
 jobs:
   thanks:
@@ -21,3 +22,5 @@ jobs:
               repo: context.repo.repo,
             });
             console.log(result);
+
+# context.issue.number
