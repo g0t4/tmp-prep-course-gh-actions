@@ -20,16 +20,21 @@ jobs:
             console.log(`issue_number: ${issue_number}`);
             const owner = context.repo.owner;
             const repo = context.repo.repo;
+
+            // lookup issue info
             result = await github.rest.issues.get({
               repo, owner, issue_number
             });
+            console.log(`result: ${result}`);
+
+            // create comment thanking contributor
             const comment = await github.rest.issues.createComment({
               repo, owner, issue_number,
               body: "Thanks for your contribution!"
             });
             console.log(`comment id: ${comment.data.id}`);
             console.log(comment.data);
-            // return comment; // return comment
+
+            // make comment id available to subsequent steps
             return comment.data.id;
-          # result-encoding: # "json" default, also "string"
       - run: echo 'comment id=${{ steps.issue_script.outputs.result }}'
