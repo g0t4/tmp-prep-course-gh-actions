@@ -22,6 +22,23 @@ const octokit = new Octokit({
   result.data.forEach(issue => { console.log("  ", issue.title, issue.number) });
   console.log();
 
+  const pull_number = 8; // malicious pull
+  // const { data: pull_request } = await octokit.rest.pulls.get({
+  //   repo, owner, pull_number
+  // });
+  // // FYI pull_request.diff_url => 'https://github.com/g0t4/tmp-prep-course-gh-actions/pull/8.diff',
+  // //console.log(pull_request)
+
+  const pr_diff = await await octokit.rest.pulls.get({
+    repo, owner, pull_number,
+    mediaType: {
+      format: 'diff'
+    }
+  });
+  // pr_diff.data (has the diff)
+  console.log(pr_diff);
+
+  return
 
   const issue1 = await octokit.rest.issues.get({
     repo, owner, issue_number
