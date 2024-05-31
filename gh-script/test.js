@@ -19,7 +19,7 @@ const octokit = new Octokit({
   });
   //console.debug(result);
   console.log('issues: ' + result.data.length)
-  result.data.forEach(issue => { console.log("  ", issue.title, issue.number) });
+  result.data.forEach(issue => { console.log("  ", issue.title, issue.number, issue.pull_request ? "PR" : "ISSUE") });
   console.log();
 
   const pull_number = 8; // malicious pull
