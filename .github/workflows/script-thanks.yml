@@ -14,12 +14,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const issue_number = 4;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             result = await github.rest.issues.get({
-              issue_number: 4,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner,
+              repo,
+              issue_number
             });
             console.log(result);
 
