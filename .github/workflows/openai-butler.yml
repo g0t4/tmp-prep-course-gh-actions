@@ -3,7 +3,7 @@
 name: openai Code butler
 
 permissions:
-  contents: read  # checkout, etc
+  # contents: read  # checkout, etc
   pull-requests: write # comment on PRs
 
 on:
