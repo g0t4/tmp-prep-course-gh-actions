@@ -23,7 +23,7 @@ jobs:
       - run: go build
       - run: ls
       - run: go test -v
-      - run: ./upper foo the bar
+      - run: test $(./upper foo bar) = "FOO BAR"
       - uses: actions/upload-artifact@v4 # reiterate demo of click through for version
         # SHOW actions.yml too => https://github.com/actions/upload-artifact/blob/v4/action.yml
         # for right tag too
