@@ -28,4 +28,4 @@ jobs:
           # SHOW actions.yml too => https://github.com/actions/upload-artifact/blob/v4/action.yml
           # for right tag too
         with:
-          path: ./upper # show entire dir capture
+          path: ./upper/upper # show entire dir capture
