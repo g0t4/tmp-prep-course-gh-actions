@@ -1,4 +1,4 @@
-name: upper-capture
+name: live-upper-capture
 
 on:
   push:
