@@ -1,0 +1,27 @@
+name: upper-capture
+
+on:
+  push:
+    paths:
+      - ".github/workflows/upper-capture.yml"
+      - "upper/**"
+  workflow_dispatch: # manual
+
+jobs:
+  capture:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ./upper/go.mod
+          cache-dependency-path: ./upper/go.sum
+      - name: build and test
+        run: |
+          set -x
+          ls
+          go build
+          ls
+          go test
+          ./upper foo the bar
+        # working-directory: upper
