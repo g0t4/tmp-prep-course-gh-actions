@@ -12,17 +12,13 @@ jobs:
     runs-on: macos-latest
     defaults:
       run:
-        # applies to run steps only, that is a good thing b/c we need to use an action to checkout this dir to begin with! but it can be confusing when dealing w/ paths for actions like the setup-go action's cache-dependency-path or go-version-file
-        working-directory: foo/upper
-        # ensure dir exists before using it in a run step
+        working-directory: upper
     steps:
       - uses: actions/checkout@v4
-        with:
-          path: foo
       - uses: actions/setup-go@v5
         with:
           go-version: 1.22
-          cache-dependency-path: ./foo/upper/go.sum
+          cache-dependency-path: ./upper/go.sum
       - run: ls
       - run: go build
       - run: ls
