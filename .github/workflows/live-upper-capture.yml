@@ -28,6 +28,6 @@ jobs:
           # SHOW actions.yml too => https://github.com/actions/upload-artifact/blob/v4/action.yml
           # for right tag too
         with:
-          compression-level: -1
+          compression-level: 0
           name: "renamed-${{ github.run_number }}"
           path: ./upper/upper # show entire dir capture
