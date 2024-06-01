@@ -1,4 +1,4 @@
-name: upper-capture
+name: upper-checkout-sub-dir
 
 on:
   # push:
