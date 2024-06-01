@@ -24,3 +24,8 @@ jobs:
       - run: ls
       - run: go test -v
       - run: ./upper foo the bar
+      - uses: actions/upload-artifact@v4 # reiterate demo of click through for version
+          # SHOW actions.yml too => https://github.com/actions/upload-artifact/blob/v4/action.yml
+          # for right tag too
+        with:
+          path: ./upper # show entire dir capture
