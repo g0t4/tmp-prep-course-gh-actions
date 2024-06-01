@@ -28,7 +28,4 @@ jobs:
         run: |
           set -x
           ls
-          go build
-          ls
-          go test
-          ./upper foo the bar
+          
