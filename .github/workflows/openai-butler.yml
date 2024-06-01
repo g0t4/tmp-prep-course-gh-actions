@@ -12,6 +12,12 @@ on:
     # FYI this is a branchless event/trigger, so make sure the workflow is in the default branch and all edits happen there
 
 jobs:
+  # logs:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # context/payload docs: https://docs.github.com/en/webhooks/webhook-events-and-payloads#issue_comment
+  #     - run: echo 'Issue Comment - ${{ github.event.comment.body }}'
+  #     - run: echo 'Issue Comment Author - ${{ toJson(github.event) }}'
   review:
     if: startsWith(github.event.comment.body, '/review')
     runs-on: ubuntu-latest
