@@ -3,7 +3,7 @@
 name: openai Code butler
 
 permissions:
-  contents: none # checkout, etc
+  contents: read  # checkout, etc (this is a public repo, so readonly perms pretty much are irrelevant)
   pull-requests: write # comment on PRs
 
 on:
