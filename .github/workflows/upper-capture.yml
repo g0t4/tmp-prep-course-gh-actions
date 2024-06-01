@@ -13,7 +13,7 @@ jobs:
     defaults:
       run:
         # applies to run steps only, that is a good thing b/c we need to use an action to checkout this dir to begin with! but it can be confusing when dealing w/ paths for actions like the setup-go action's cache-dependency-path or go-version-file
-        working-directory: foo
+        working-directory: foo/upper
         # ensure dir exists before using it in a run step
     steps:
       - uses: actions/checkout@v4
@@ -22,10 +22,9 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: 1.22
-          cache-dependency-path: ./upper/go.sum
-      - name: build and test
-        continue-on-error: true
-        run: |
-          set -x
-          ls
-          
+          cache-dependency-path: ./foo/upper/go.sum
+      - run: ls
+      - run: go build
+      - run: ls
+      - run: go test
+      - run: ./upper foo the bar
