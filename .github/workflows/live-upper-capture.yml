@@ -22,5 +22,5 @@ jobs:
       - run: ls
       - run: go build
       - run: ls
-      - run: go test
+      - run: go test -v
       - run: ./upper foo the bar
