@@ -85,5 +85,5 @@ jobs:
           body: "Binaries for the uppper (go) command line tool"
           files: |
             upper/bin/upper-*
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # token: ${{ secrets.GITHUB_TOKEN }}  # this is the default, works w/o this
         #if: startsWith(github.ref, 'refs/tags/')
