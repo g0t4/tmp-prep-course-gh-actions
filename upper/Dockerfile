@@ -24,7 +24,9 @@ RUN --mount=type=cache,target=/go/pkg/mod/ \
 
 FROM alpine:latest AS final
 
-# LABEL org.opencontainers.image.source="https://github.com/g0t4/tmp-prep-course-gh-actions"
+# FYI when create package from actions, it is auto linked to the repo of the action... still can add label to point to repo too (i.e. for people who pull the image and later wanna know)
+LABEL org.opencontainers.image.source="https://github.com/g0t4/tmp-prep-course-gh-actions"
+# description/licenses are used in packages web UI
 LABEL org.opencontainers.image.description="tmp upper command written in go"
 LABEL org.opencontainers.image.licenses=MIT
 
