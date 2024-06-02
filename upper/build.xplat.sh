@@ -1,13 +1,16 @@
 #!/bin/bash
 set -e
 
+# echo "::group::Testing..."
+go test -v
+# echo "::endgroup::"
+
 APP_NAME=upper
 OUTPUT_DIR=bin
 
-platforms=("windows/amd64" "linux/amd64" "darwin/amd64")
-
 mkdir -p $OUTPUT_DIR
 
+platforms=("windows/amd64" "linux/amd64" "darwin/amd64")
 for platform in "${platforms[@]}"
 do
     platform_split=(${platform//\// })
@@ -18,15 +21,13 @@ do
         output_name+='.exe'
     fi
 
-    # workflow command to group:
-    echo "::group::Building $output_name..."
-
+    # echo "::group::Building $output_name..."
     go clean # remove prior build (triggers more logging too)
     env GOOS=$GOOS GOARCH=$GOARCH go build -x -o $output_name .
-
-    echo "::endgroup::"
+    # echo "::endgroup::"
 
 done
 
-echo "tree"
+# echo "::group::tree..."
 tree
+# echo "::endgroup::"
