@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - ".github/workflows/upper-image.yml"
-      - "upper"
+      - "./upper"
   workflow_dispatch: # manual
 
 permissions:
