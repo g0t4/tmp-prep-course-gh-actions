@@ -81,7 +81,7 @@ jobs:
       #     name: build
       - uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
+          # tag_name: ${{ github.ref_name }} # docs say github.ref (full)
           body: "Binaries for the uppper (go) command line tool"
           files: |
             upper/bin/upper-*
