@@ -81,7 +81,10 @@ jobs:
       #     name: build
       - uses: softprops/action-gh-release@v2
         with:
-          # tag_name: ${{ github.ref_name }} # docs say github.ref (full)
+          # tag_name: ${{ github.ref_name }} # *** must set tag_name if triggered (push) on a branch (i.e. master)
+          #   do not need tag_name if triggered on a tag push (defaults to tag's ref_name)
+          #     FYI docs say default is github.ref but clearly it is github.ref_name
+          #   so, to create branch based releases (i.e. master) then need to set tag_name explicitly else it will fail
           body: "Binaries for the uppper (go) command line tool"
           files: upper/bin/upper-*
           # token: ${{ secrets.GITHUB_TOKEN }}  # this is the default, works w/o this
