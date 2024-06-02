@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+
 	// FYI:
 	//    ./upper foo the bar  # FOO THE BAR\n
 	//    echo "hello" | ./upper  # HELLO\n
