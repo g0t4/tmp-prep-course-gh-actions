@@ -54,6 +54,14 @@ jobs:
       # FYI mysql also exists on standard runners, but use container for specific version  and/or alternatives like mariadb
       # this will simulate a client that connects to the mysql database (i.e. an intergation test runner)
     services:
+      mariadbserver:
+        image: mariadb:11
+        env:
+          MARIADB_ROOT_PASSWORD: ${{ needs.generate.outputs.RANDOM_PASSWORD }}
+          MARIADB_DATABASE: carfoo
+        ports:
+          - 3306:3306
+        # options: --health-cmd="mariadb-admin ping -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }}" --health-interval=10s --health-timeout=5s --health-retries=3
       mysqlserver:
         image: mysql:8
         env:
@@ -61,12 +69,13 @@ jobs:
           MYSQL_DATABASE: foothebar
         ports:
           - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        # TODO remove or fix health options:
+        # options: --health-cmd="mysqladmin ping -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }}" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       # run steps are executed in the job container (hence the name, a job container b/c these are job steps)
-      - run: mysql --version
+      - run: mariadb --version
       - run: echo "RANDOM_PASSWORD=${{ needs.generate.outputs.RANDOM_PASSWORD }}"
-      - run: mysql -h mysqlserver -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }} -e "SHOW DATABASES;"
+      - run: mariadb -h mariadbserver -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }} -e "SHOW DATABASES;"
       - run: echo "job.services= ${{ toJson(job.services)}}" # { mysql: { id, ports:[], network } }
       - run: echo "job.container= ${{ toJson(job.container)}}" # {id, network }
       # FYI alternative is just use docker compose to orchestrate it all for you and plug it into a step, and the reason I suggest that is b/c you can run it locally and test it w/o pushing or using smth like act, but YMMV so service containers exist too
