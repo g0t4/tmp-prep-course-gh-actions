@@ -19,7 +19,6 @@ jobs:
       - name: dump env vars BEFORE
         run: env | sort
       - name: generate a random password for mysql
-        id: generate-step # dont confuse with job-id, this is a step-id
         run: echo "RANDOM_PASSWORD=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> "$GITHUB_ENV"
       - run: echo "$RANDOM_PASSWORD" # prefer this vs expression (next) b/c this shows its auto avail in subsequent steps
       - run: echo ${{ env.RANDOM_PASSWORD }} # works too but requires eval expression and inject value, easier to read env var instead (w/o context, see prior step)
