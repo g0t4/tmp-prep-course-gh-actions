@@ -14,7 +14,7 @@ jobs:
       RANDOM_PASSWORD: ${{ env.RANDOM_PASSWORD }} # two birds, one stone (use ENV locally to pass and next job uses this jobs output) # evaluated after steps, thus RANDOM_PASSWORD is set
       #
       # ALTERNATIVE:
-      RANDOM_PASSWORD_VIA_OUTPUT: ${{ steps.generate-to-output.outputs.RANDOM_PASSWORD_VIA_OUTPUT }} # alternative is to use step output instead of env var (use GITHUB_OUTPUT env file below instead of GITHUB_ENV)
+      RANDOM_PASSWORD_VIA_OUTPUT: ${{ steps.generate-to-output.outputs.RANDOM_PASSWORD_VIA_OUTPUT }} # alternative is to use step output instead of env var (use GITHUB_OUTPUT env file below instead of GITHUB_ENV), pro of env var is it is auto avail to all subsequent steps in job, whereas step output has to be explicitly passed to subsequent steps (i.e. below when I dump RANDOM_PASSWORD_VIA_OUTPUT)
     steps:
       - name: dump env vars BEFORE
         run: env | sort
@@ -31,6 +31,7 @@ jobs:
         id: generate-to-output
         run: echo "RANDOM_PASSWORD_VIA_OUTPUT=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 12)" >> "$GITHUB_OUTPUT"
       - name: dump RANDOM_PASSWORD_VIA_OUTPUT
+        # con of step output => have to explicitly pass outputs where as env vars are auto avail to all subsequent steps in job
         run: echo ${{ steps.generate-to-output.outputs.RANDOM_PASSWORD_VIA_OUTPUT }} # password is visible
 
   # testing job for Step 1 demo:
