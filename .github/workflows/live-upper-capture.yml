@@ -19,6 +19,7 @@ jobs:
         with:
           go-version: 1.22 # use cached version (when avail) for faster setup
           cache-dependency-path: ./upper/go.sum
+      - run: echo foo
       - run: ls
       - run: go build
       - run: ls
