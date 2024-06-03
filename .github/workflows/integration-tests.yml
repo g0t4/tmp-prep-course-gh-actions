@@ -67,7 +67,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: ${{ needs.generate.outputs.RANDOM_PASSWORD }}
           MYSQL_DATABASE: foothebar
         # ports => don't need publish ports, b/c all containers are on same UDF network (think docker compose project)
-        # options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         # FYI mysqladmin ping => returns 0 if running (even if access denied) so you don't need to pass user/pass to use this for health check => https://dev.mysql.com/doc/refman/8.0/en/mysqladmin.html
     steps:
       # run steps are executed in the job container (hence the name, a job container b/c these are job steps)
