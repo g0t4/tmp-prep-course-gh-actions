@@ -62,15 +62,16 @@ jobs:
         ports:
           - 3306:3306
         # options: --health-cmd="mariadb-admin ping -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }}" --health-interval=10s --health-timeout=5s --health-retries=3
-      mysqlserver:
-        image: mysql:8
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ needs.generate.outputs.RANDOM_PASSWORD }}
-          MYSQL_DATABASE: foothebar
-        ports:
-          - 3306:3306
-        # TODO remove or fix health options:
-        # options: --health-cmd="mysqladmin ping -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }}" --health-interval=10s --health-timeout=5s --health-retries=3
+      # mysqlserver:
+      #   image: mysql:8
+      #   env:
+      #     MYSQL_ROOT_PASSWORD: ${{ needs.generate.outputs.RANDOM_PASSWORD }}
+      #     MYSQL_DATABASE: foothebar
+      #   ports:
+      #     # careful with overlap ports between service containers (appear to have same netns)
+      #     - 3306:3306
+      #   # TODO remove or fix health options:
+      #   # options: --health-cmd="mysqladmin ping -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }}" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       # run steps are executed in the job container (hence the name, a job container b/c these are job steps)
       - run: mariadb --version
