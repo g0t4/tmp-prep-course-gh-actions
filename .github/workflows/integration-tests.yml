@@ -62,21 +62,23 @@ jobs:
         ports:
           - 3306:3306
         options: --health-cmd="mariadb-admin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-      # mysqlserver:
-      #   image: mysql:8
-      #   env:
-      #     MYSQL_ROOT_PASSWORD: ${{ needs.generate.outputs.RANDOM_PASSWORD }}
-      #     MYSQL_DATABASE: foothebar
-      #   ports:
-      #     # careful with overlap ports between service containers (appear to have same netns)
-      #     - 3306:3306
-      #   # TODO remove or fix health options:
-      #   # options: --health-cmd="mysqladmin ping -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }}" --health-interval=10s --health-timeout=5s --health-retries=3
+        # FYI mariadb-admin ping => returns 0 if running (even if access denied) so you don't need to pass user/pass to use this for health check
+      mysqlserver:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ needs.generate.outputs.RANDOM_PASSWORD }}
+          MYSQL_DATABASE: foothebar
+        ports:
+          # careful with overlap ports between service containers (appear to have same netns)
+          - 3307:3306 # TODO try w/o published ports, I shouldn't need them if job container is on same network as service containers
+        # options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        # FYI mysqladmin ping => returns 0 if running (even if access denied) so you don't need to pass user/pass to use this for health check => https://dev.mysql.com/doc/refman/8.0/en/mysqladmin.html
     steps:
       # run steps are executed in the job container (hence the name, a job container b/c these are job steps)
       - run: mariadb --version
       - run: echo "RANDOM_PASSWORD=${{ needs.generate.outputs.RANDOM_PASSWORD }}"
       - run: mariadb -h mariadbserver -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }} -e "SHOW DATABASES;"
+      - run: mariadb -h mysqlserver -u root -p${{ needs.generate.outputs.RANDOM_PASSWORD }} -e "SHOW DATABASES;"
       - run: echo "job.services= ${{ toJson(job.services)}}" # { mysql: { id, ports:[], network } }
       - run: echo "job.container= ${{ toJson(job.container)}}" # {id, network }
       # FYI alternative is just use docker compose to orchestrate it all for you and plug it into a step, and the reason I suggest that is b/c you can run it locally and test it w/o pushing or using smth like act, but YMMV so service containers exist too
