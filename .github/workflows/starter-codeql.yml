@@ -70,7 +70,7 @@ jobs:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
 
-        packs: codeql/go-all@v1.0.0
+        packs: codeql/go-all@1.0.0
         # https://github.com/orgs/codeql/packages/container/package/csharp-all
 
         # queries: './codeql-custom-queries-csharp/example.ql' # + = append, no prefix = replace
