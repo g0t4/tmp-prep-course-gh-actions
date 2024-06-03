@@ -34,6 +34,8 @@ jobs:
       - name: dump RANDOM_PASSWORD_VIA_OUTPUT
         # con of step output => have to explicitly pass outputs where as env vars are auto avail to all subsequent steps in job
         run: echo ${{ steps.generate-to-output.outputs.RANDOM_PASSWORD_VIA_OUTPUT }} # password is visible
+      - name: test mysql version on runner (if in path)
+        run: mysql --version
 
   # testing job for Step 1 demo:
   # testing1:
