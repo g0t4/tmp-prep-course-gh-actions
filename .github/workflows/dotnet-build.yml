@@ -21,4 +21,7 @@ jobs:
           dotnet-quality: preview
       - run: dotnet --version
       - run: dotnet --list-runtimes
+      - run: dotnet --list-sdks
+      - run: dotnet build
+      - run: ls bin/Debug/net6.0
 
