@@ -20,4 +20,5 @@ jobs:
           dotnet-version: 9.0.x
           dotnet-quality: preview
       - run: dotnet --version
+      - run: dotnet --list-runtimes
 
