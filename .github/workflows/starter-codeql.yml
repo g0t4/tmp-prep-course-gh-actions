@@ -71,8 +71,13 @@ jobs:
         build-mode: ${{ matrix.build-mode }}
 
         # builtin https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning#using-queries-in-ql-packs
-        # queries: security-extended # w00t => this triggers the "Hard-coded credentials - Critical" alert that I designed into the code!
-        queries: security-and-quality
+        # queries: security-extended # w00t => alert for: "Hard-coded credentials - Critical" that I designed into the code!
+        #
+        queries: security-and-quality # = security-extended + quality
+        # *** quality adds 2 new alerts beyond security-extended:
+        #   "Useless assignment to local variable - Warning"
+        #   "Missed ternary opportunity - Note"
+        # FYI setting queries => will show on codeql config page (hidden if this is not set)
         #
         # packs: codeql/csharp-all@1.0.0
         # packs: codeql/go-all@1.0.0
