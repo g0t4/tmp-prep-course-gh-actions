@@ -11,8 +11,8 @@ jobs:
     # hook this into CD pipeline, after build/unit tests
     runs-on: ubuntu-latest
     outputs:
-      RANDOM_PASSWORD: ${{ env.RANDOM_PASSWORD }} # two birds, one stone (use ENV locally to pass and next job uses this jobs output) # evaluated after steps, thus RANDOM_PASSWORD is set
-      # RANDOM_PASSWORD: ${{ steps.generate-step.outputs.RANDOM_PASSWORD }} # alternative is to use step output instead of env var to produce this job output
+      # RANDOM_PASSWORD: ${{ env.RANDOM_PASSWORD }} # two birds, one stone (use ENV locally to pass and next job uses this jobs output) # evaluated after steps, thus RANDOM_PASSWORD is set
+      RANDOM_PASSWORD: ${{ steps.generate-step.outputs.RANDOM_PASSWORD }} # alternative is to use step output instead of env var to produce this job output
     steps:
       - name: generate a random password for mysql
         id: generate-step # dont confuse with job-id, this is a step-id
