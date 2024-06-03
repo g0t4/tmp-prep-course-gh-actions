@@ -46,12 +46,12 @@ jobs:
     needs: generate # *** must be after gen password!
     runs-on: ubuntu-latest
     container:
-      image: mysql:5.7
+      image: mysql:8
       # FYI mysql also exists on standard runners
       # this will simulate a client that connects to the mysql database (i.e. an intergation test runner)
     services:
       mysqlserver:
-        image: mysql:5.7
+        image: mysql:8
         env:
           MYSQL_ROOT_PASSWORD: ${{ needs.generate.outputs.RANDOM_PASSWORD }}
           MYSQL_DATABASE: foothebar
