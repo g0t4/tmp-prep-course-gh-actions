@@ -48,9 +48,9 @@ jobs:
     needs: generate # *** must be after gen password!
     runs-on: ubuntu-latest
     container:
-      # image: mysql:8
+      image: mysql:8
       # image: mysql:5.7
-      image: mariadb:11
+      # image: mariadb:11
       # FYI mysql also exists on standard runners, but use container for specific version  and/or alternatives like mariadb
       # this will simulate a client that connects to the mysql database (i.e. an intergation test runner)
     services:
