@@ -15,7 +15,6 @@ on:
   push:
     paths:
       - '.github/workflows/starter-codeql.yml'
-  #  branches: [ "master" ]
   # schedule:
   #  - cron: '23 0 * * 0'
   workflow_dispatch: # manual
