@@ -73,10 +73,12 @@ jobs:
         # builtin https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning#using-queries-in-ql-packs
         # queries: security-extended # w00t => alert for: "Hard-coded credentials - Critical" that I designed into the code!
         #
-        queries: security-and-quality # = security-extended + quality
+        # queries: security-and-quality # = security-extended + quality
         # *** quality adds 2 new alerts beyond security-extended:
         #   "Useless assignment to local variable - Warning"
         #   "Missed ternary opportunity - Note"
+        #
+        queries: security-experimental # found in github/codeql repo for csharp and go
         # FYI setting queries => will show on codeql config page (hidden if this is not set)
         #
         # packs: codeql/csharp-all@1.0.0
