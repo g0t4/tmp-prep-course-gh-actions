@@ -22,7 +22,7 @@ jobs:
           go build
           go test
           ls
-          ./upper foo the bar
+          echo foo | ./upper foo the bar
           sleep 3
         working-directory: ./upper
         name: build and test
