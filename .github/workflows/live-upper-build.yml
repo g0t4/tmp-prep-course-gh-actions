@@ -15,9 +15,14 @@ jobs:
       - run: pwd && ls -al
       - uses: actions/checkout@v4
       - run: go version
+      - run: go env GOMODCACHE
+      - run: "ls $(go env GOMODCACHE)"
       - uses: actions/setup-go@v5
         with:
-          go-version: "1.22"
+          # go-version: "1.22"
+          go-version-file: ./upper/go.mod
+          cache-dependency-path: ./upper/go.sum
+      - run: "ls $(go env GOMODCACHE)"
       - run: go version
       - run: |
           ls
