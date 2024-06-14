@@ -11,6 +11,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "${{ github.workspace }}"
+      - run: pwd && ls -al
       - uses: actions/checkout@v4
       - run: go version
       - uses: actions/setup-go@v5
