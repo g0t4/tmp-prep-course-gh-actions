@@ -22,6 +22,7 @@ jobs:
           # go-version: "1.22"
           go-version-file: ./upper/go.mod
           cache-dependency-path: ./upper/go.sum
+          # FYI cache quirks can be captured and reused... I had unused deps (added to show slow download speed for modules...) and so unused deps aren't pulled on the fly (go build/test) ... and then in a later build I added a step for "go mod download" but the cache was captured before I added it so until I deleted that cache it never had the unused deps, so every future "go mod download" had to get deps (only unused) ... just be aware of possible confusion... i.e. maybe when setting up new workflows and iterating on them, make sure to nuke caches afterward before putting into prod!
       - run: go env
       - run: ls $(go env GOMODCACHE) || true
       - run: go mod download
