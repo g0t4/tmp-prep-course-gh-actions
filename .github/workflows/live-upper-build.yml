@@ -24,6 +24,9 @@ jobs:
           go-version-file: ./upper/go.mod
           cache-dependency-path: ./upper/go.sum
       - run: ls $(go env GOMODCACHE) || true # instead of `continue-on-error: true`
+      - run: go mod download
+        working-directory: ./upper
+      - run: ls $(go env GOMODCACHE) || true
       - run: go version
       - run: |
           ls
