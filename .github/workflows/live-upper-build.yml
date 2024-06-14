@@ -17,12 +17,13 @@ jobs:
       - run: go version
       - run: go env GOMODCACHE
       - run: ls $(go env GOMODCACHE)
+        continue-on-error: true # instead of || true
       - uses: actions/setup-go@v5
         with:
           # go-version: "1.22"
           go-version-file: ./upper/go.mod
           cache-dependency-path: ./upper/go.sum
-      - run: ls $(go env GOMODCACHE)
+      - run: ls $(go env GOMODCACHE) || true # instead of `continue-on-error: true`
       - run: go version
       - run: |
           ls
