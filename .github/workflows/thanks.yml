@@ -1,7 +1,9 @@
 name: thanks
 
 on:
-  workflow_dispatch: # manual
+  issues:
+    types: opened # easier to test manual first than open issue to troubleshoot new workflow
+  workflow_dispatch: # manual (test thanks w/ default issue_number)
 
 jobs:
   thanks:
