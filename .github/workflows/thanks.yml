@@ -9,9 +9,9 @@ on:
 
 jobs:
   thanks:
-    permissions:
-      issues: write
-      # public repo so read is implict even if I override and add only write here
+    # permissions:
+    #   issues: write
+    #  # public repo so read is implict even if I override and add only write here
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v7
