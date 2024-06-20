@@ -8,3 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo on-pr-target-ing
+      - run: echo malicious2
