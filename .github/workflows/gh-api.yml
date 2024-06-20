@@ -20,6 +20,8 @@ jobs:
       - run: gh --version
       - run: gh auth status
       - run: gh repo list # no permissions needed, to list this repo only (workflows are repo specific)
+      - run: gh repo list kubernetes # no permissions needed, to list this repo only (workflows are repo specific)
+      - run: gh repo list g0t4 # no permissions needed, to list this repo only (workflows are repo specific)
       - uses: actions/checkout@v4 # contents: read
       - run: gh workflow list # actions: read
       - run: gh api /repos/:owner/:repo/commits/master/status # statuses: read
