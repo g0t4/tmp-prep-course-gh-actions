@@ -10,7 +10,8 @@ on:
 jobs:
   thanks:
     permissions:
-      issues: write
+      # issues: write
+      pull-requests: write
       # public repo so read is implict even if I override and add only write here
     runs-on: ubuntu-latest
     steps:
