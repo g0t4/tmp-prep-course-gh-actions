@@ -10,8 +10,8 @@ on:
 jobs:
   thanks:
     permissions:
-      # issues: write
-      pull-requests: write
+      issues: write # for modifying issues
+      # pull-requests: write # for modifying PRs ... FYI fails to add comment to issues
       # public repo so read is implict even if I override and add only write here
     runs-on: ubuntu-latest
     steps:
