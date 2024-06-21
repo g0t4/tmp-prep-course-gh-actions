@@ -34,7 +34,7 @@ jobs:
           files: upper/bin/*
           tag_name: ${{ github.ref_name }} # default is github.ref, actually it's ref_name IIRC in source code
           # prerelease: true # FYI
-          body: "experimental extra release demos?..."
+          body: "experimental extra release demos?... changes"
           # FYI handling of release target commit if (or if not) `target_commitish` is set: https://github.com/softprops/action-gh-release/blob/810bfa2cd5f7c2bd4138fa75005d437ba562db81/src/github.ts#L229-L240
           #    if not set, then release keeps its original target_commitish
           target_commitish: ${{ github.sha }}
