@@ -40,7 +40,5 @@ jobs:
           #target_commitish: 
           # make_latest: true # defaults based on gh api
         # if: startsWith(github.ref, 'refs/tags/')
-        #    requirie tag w/ v* prefix to trigger release
-        #
-# cdr; act --workflows .github/workflows/upper-build.yml --reuse
-#    warn to test w/o --reuse, as needed, i.e. major changes to the workflow
+        # FYI if release is for new tag, it will use default branch if you don't specify a `target_commitish`...
+        # 
