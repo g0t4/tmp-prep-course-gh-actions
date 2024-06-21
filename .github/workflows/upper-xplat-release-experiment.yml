@@ -1,4 +1,4 @@
-name: FYI UNUSED so far, save in case I wanna do more demos later
+name: upper-xplat-release-experiment
 
 on:
   push:
@@ -37,9 +37,9 @@ jobs:
           body: "experimental extra release demos?..."
           # FYI handling of release target commit if (or if not) `target_commitish` is set: https://github.com/softprops/action-gh-release/blob/810bfa2cd5f7c2bd4138fa75005d437ba562db81/src/github.ts#L229-L240
           #    if not set, then release keeps its original target_commitish
-          # target_commitish:
+          #target_commitish: 
           # make_latest: true # defaults based on gh api
-        if: startsWith(github.ref, 'refs/tags/')
+        # if: startsWith(github.ref, 'refs/tags/')
         #    requirie tag w/ v* prefix to trigger release
         #
 # cdr; act --workflows .github/workflows/upper-build.yml --reuse
