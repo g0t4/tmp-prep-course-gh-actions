@@ -73,8 +73,6 @@ jobs:
           # tag_name: ${{ github.ref_name }}
           # prerelease: true # FYI
           body: "Release of upper command for uppercasing text..."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: startsWith(github.ref, 'refs/tags/')
         #    requirie tag w/ v* prefix to trigger release
         #

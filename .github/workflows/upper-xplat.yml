@@ -52,8 +52,6 @@ jobs:
           append_body: true # if release again, append to body (ie push tag twice)
           # fail_on_unmatched_files:
           make_latest: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: startsWith(github.ref, 'refs/tags/')
         #    requirie tag w/ v* prefix to trigger release
         #
